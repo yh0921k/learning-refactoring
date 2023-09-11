@@ -1,8 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,gradle,git,macos,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,git,macos,intellij
 
+### IntelliJ ###
+.idea/*
+
 ### Lecture ###
 src/main/java/lecture/*
+src/test/java/lecture/*
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
