@@ -33,11 +33,7 @@ public class Chapter01Application {
     format.setMinimumFractionDigits(2);
 
     for (Performance perf : invoice.getPerformances()) {
-      Play play =
-          Arrays.stream(plays)
-              .filter(p -> p.getPlayId().equals(perf.getPlayId()))
-              .findFirst()
-              .get();
+      Play play = playFor(plays, perf);
 
       int thisAmount = amountFor(perf, play);
 
@@ -60,6 +56,13 @@ public class Chapter01Application {
     result += String.format("총액: %s\n", format.format(totalAmount / 100));
     result += String.format("적립 포인트: %s점\n", volumeCredits);
     return result;
+  }
+
+  private static Play playFor(Play[] plays, Performance perf) {
+    return Arrays.stream(plays)
+        .filter(p -> p.getPlayId().equals(perf.getPlayId()))
+        .findFirst()
+        .get();
   }
 
   public static int amountFor(Performance aPerformance, Play play) throws Exception {
