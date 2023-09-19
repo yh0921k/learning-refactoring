@@ -33,15 +33,13 @@ public class Chapter01Application {
     format.setMinimumFractionDigits(2);
 
     for (Performance perf : invoice.getPerformances()) {
-      Play play = playFor(plays, perf);
-
-      int thisAmount = amountFor(perf, play);
+      int thisAmount = amountFor(perf, playFor(plays, perf));
 
       // 포인트 적립
       volumeCredits += Math.max(perf.getAudience() - 30, 0);
 
       // 희극 관객 5명마다 추가 포인트 제공
-      if (play.getType().equals("comedy")) {
+      if (playFor(plays, perf).getType().equals("comedy")) {
         volumeCredits += Math.floor(perf.getAudience() / 5);
       }
 
@@ -49,7 +47,7 @@ public class Chapter01Application {
       result +=
           String.format(
               "%15s:%12s%4s석\n",
-              play.getName(), format.format(thisAmount / 100), perf.getAudience());
+              playFor(plays, perf).getName(), format.format(thisAmount / 100), perf.getAudience());
       totalAmount += thisAmount;
     }
 
