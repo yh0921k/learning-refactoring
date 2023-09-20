@@ -6,10 +6,10 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class Invoice {
-  @JsonSetter("customer")
-  private String customer;
+public class Performance {
+  @JsonSetter("playID")
+  private String playId;
 
-  @JsonSetter("performances")
-  private Performance[] performances;
+  @JsonSetter("audience")
+  private int audience;
 }
