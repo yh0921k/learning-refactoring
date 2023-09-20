@@ -23,8 +23,8 @@ public class Chapter01Application {
     Play[] plays = readJson("resource/plays.json", Play[].class);
     Invoice[] invoices = readJson("resource/invoices.json", Invoice[].class);
 
-    Statement statement = new Statement();
-    String plainText = statement.readPlainText(invoices[0], plays);
+    Statement statement = new Statement(invoices[0], plays);
+    String plainText = statement.readPlainText();
 
     System.out.println(plainText);
   }

@@ -2,14 +2,20 @@ package book.chapter01.domain;
 
 import book.chapter01.dto.Invoice;
 import book.chapter01.dto.Play;
+import lombok.RequiredArgsConstructor;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Currency;
 import java.util.Locale;
 
+@RequiredArgsConstructor
 public class Statement {
-  public String readPlainText(Invoice invoice, Play[] plays) throws Exception {
+
+  private final Invoice invoice;
+  private final Play[] plays;
+
+  public String readPlainText() throws Exception {
     int totalAmount = 0;
     int volumeCredits = 0;
     String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
