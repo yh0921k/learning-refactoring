@@ -25,8 +25,6 @@ public class Statement {
     format.setMinimumFractionDigits(2);
 
     for (Performance perf : invoice.getPerformances()) {
-      int thisAmount = amountFor(perf);
-
       // 포인트 적립
       volumeCredits += Math.max(perf.getAudience() - 30, 0);
 
@@ -39,8 +37,8 @@ public class Statement {
       result +=
           String.format(
               "%15s:%12s%4s석\n",
-              playFor(perf).getName(), format.format(thisAmount / 100), perf.getAudience());
-      totalAmount += thisAmount;
+              playFor(perf).getName(), format.format(amountFor(perf) / 100), perf.getAudience());
+      totalAmount += amountFor(perf);
     }
 
     result += String.format("총액: %s\n", format.format(totalAmount / 100));
