@@ -26,12 +26,7 @@ public class Statement {
 
     for (Performance perf : invoice.getPerformances()) {
       // 포인트 적립
-      volumeCredits += Math.max(perf.getAudience() - 30, 0);
-
-      // 희극 관객 5명마다 추가 포인트 제공
-      if (playFor(perf).getType().equals("comedy")) {
-        volumeCredits += Math.floor(perf.getAudience() / 5);
-      }
+      volumeCredits += volumeCreditsFor(perf);
 
       // 청구 내역 출력
       result +=
@@ -72,6 +67,18 @@ public class Statement {
         break;
       default:
         throw new Exception(String.format("알 수 없는 장르: %s", playFor(aPerformance).getType()));
+    }
+
+    return result;
+  }
+
+  private int volumeCreditsFor(Performance aPerformance) {
+    int result = 0;
+    result += Math.max(aPerformance.getAudience() - 30, 0);
+
+    // 희극 관객 5명마다 추가 포인트 제공
+    if (playFor(aPerformance).getType().equals("comedy")) {
+      result += Math.floor(aPerformance.getAudience() / 5);
     }
 
     return result;
