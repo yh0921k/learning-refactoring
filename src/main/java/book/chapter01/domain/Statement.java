@@ -21,15 +21,16 @@ public class Statement {
     String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
 
     for (Performance perf : invoice.getPerformances()) {
-      // 포인트 적립
-      volumeCredits += volumeCreditsFor(perf);
-
       // 청구 내역 출력
       result +=
           String.format(
               "%15s:%12s%4s석\n",
               playFor(perf).getName(), usd(amountFor(perf)), perf.getAudience());
       totalAmount += amountFor(perf);
+    }
+
+    for (Performance perf : invoice.getPerformances()) {
+      volumeCredits += volumeCreditsFor(perf);
     }
 
     result += String.format("총액: %s\n", usd(totalAmount));
