@@ -16,7 +16,6 @@ public class Statement {
   private final Play[] plays;
 
   public String readPlainText() throws Exception {
-    int totalAmount = 0;
     String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
 
     for (Performance perf : invoice.getPerformances()) {
@@ -25,12 +24,19 @@ public class Statement {
           String.format(
               "%15s:%12s%4s석\n",
               playFor(perf).getName(), usd(amountFor(perf)), perf.getAudience());
-      totalAmount += amountFor(perf);
     }
 
-    result += String.format("총액: %s\n", usd(totalAmount));
+    result += String.format("총액: %s\n", usd(appleSauce()));
     result += String.format("적립 포인트: %s점\n", totalVolumeCredits());
     return result;
+  }
+
+  private int appleSauce() throws Exception {
+    int totalAmount = 0;
+    for (Performance perf : invoice.getPerformances()) {
+      totalAmount += amountFor(perf);
+    }
+    return totalAmount;
   }
 
   private int totalVolumeCredits() {
