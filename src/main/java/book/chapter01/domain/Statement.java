@@ -16,6 +16,10 @@ public class Statement {
   private final Play[] plays;
 
   public String readPlainText() throws Exception {
+    return renderPlainText();
+  }
+
+  private String renderPlainText() throws Exception {
     String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
 
     for (Performance perf : invoice.getPerformances()) {
