@@ -24,7 +24,7 @@ public class Chapter01Application {
     Invoice[] invoices = readJson("resource/invoices.json", Invoice[].class);
 
     Statement statement = new Statement(invoices[0], plays);
-    String plainText = statement.readPlainText();
+    String plainText = statement.readHtml();
 
     System.out.println(plainText);
   }
