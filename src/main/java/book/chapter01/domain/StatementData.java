@@ -43,27 +43,7 @@ public class StatementData {
   }
 
   public int amountFor(Performance aPerformance) throws Exception {
-    int result = 0;
-
-    switch (playFor(aPerformance).getType()) {
-      case "tragedy":
-        result = 40000;
-        if (aPerformance.getAudience() > 30) {
-          result += 1000 * (aPerformance.getAudience() - 30);
-        }
-        break;
-      case "comedy":
-        result = 30000;
-        if (aPerformance.getAudience() > 20) {
-          result += 10000 + 500 * (aPerformance.getAudience() - 20);
-        }
-        result += 300 * aPerformance.getAudience();
-        break;
-      default:
-        throw new Exception(String.format("알 수 없는 장르: %s", playFor(aPerformance).getType()));
-    }
-
-    return result;
+    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).getAmount();
   }
 
   private int volumeCreditsFor(Performance aPerformance) {
