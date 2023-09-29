@@ -14,5 +14,5 @@ public class Play {
   private String name;
 
   @JsonSetter("type")
-  private String type;
+  private PlayType type;
 }
