@@ -36,4 +36,15 @@ public class PerformanceCalculator {
 
     return result;
   }
+
+  public int getVolumeCredits() {
+    int result = 0;
+    result += Math.max(performance.getAudience() - 30, 0);
+
+    if (play.getType().equals("comedy")) {
+      result += Math.floor(performance.getAudience() / 5);
+    }
+
+    return result;
+  }
 }
