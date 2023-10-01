@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class StatementData {
   private final Invoice invoice;
   private final Play[] plays;
+  private final PerformanceCalculatorFactory calculatorFactory = new PerformanceCalculatorFactory();
 
   public String getCustomer() {
     return invoice.getCustomer();
@@ -27,7 +28,7 @@ public class StatementData {
     return result;
   }
 
-  public int totalVolumeCredits() {
+  public int totalVolumeCredits() throws Exception {
     int result = 0;
     for (Performance perf : invoice.getPerformances()) {
       result += volumeCreditsFor(perf);
@@ -43,10 +44,14 @@ public class StatementData {
   }
 
   public int amountFor(Performance aPerformance) throws Exception {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).getAmount();
+    return calculatorFactory
+        .createPerformanceCalculator(aPerformance, playFor(aPerformance))
+        .getAmount();
   }
 
-  private int volumeCreditsFor(Performance aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance)).getVolumeCredits();
+  private int volumeCreditsFor(Performance aPerformance) throws Exception {
+    return calculatorFactory
+        .createPerformanceCalculator(aPerformance, playFor(aPerformance))
+        .getVolumeCredits();
   }
 }
