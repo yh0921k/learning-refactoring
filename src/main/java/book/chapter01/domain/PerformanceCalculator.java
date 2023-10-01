@@ -15,5 +15,7 @@ public abstract class PerformanceCalculator {
 
   public abstract int getAmount() throws Exception;
 
-  public abstract int getVolumeCredits();
+  public int getVolumeCredits() {
+    return Math.max(performance.getAudience() - 30, 0);
+  }
 }

@@ -17,8 +17,4 @@ public class TragedyCalculator extends PerformanceCalculator {
 
     return result;
   }
-
-  public int getVolumeCredits() {
-    return Math.max(performance.getAudience() - 30, 0);
-  }
 }

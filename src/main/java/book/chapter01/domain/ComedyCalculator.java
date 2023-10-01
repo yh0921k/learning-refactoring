@@ -22,7 +22,7 @@ public class ComedyCalculator extends PerformanceCalculator {
   public int getVolumeCredits() {
     int result = 0;
 
-    result += Math.max(performance.getAudience() - 30, 0);
+    result += super.getVolumeCredits();
     result += Math.floor(performance.getAudience() / 5);
 
     return result;
