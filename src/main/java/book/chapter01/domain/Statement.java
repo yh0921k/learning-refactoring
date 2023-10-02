@@ -15,49 +15,51 @@ public class Statement {
     statementData = new StatementData(invoice, plays);
   }
 
-  public String readPlainText() throws Exception {
+  public String readPlainText() {
     return renderPlainText();
   }
 
-  public String readHtml() throws Exception {
+  public String readHtml() {
     return renderHtml();
   }
 
-  private String renderPlainText() throws Exception {
-    String result = String.format("청구 내역 (고객명: %s)\n", statementData.getCustomer());
+  private String renderPlainText() {
+    StringBuilder result =
+        new StringBuilder(String.format("청구 내역 (고객명: %s)\n", statementData.getCustomer()));
 
-    for (Performance perf : statementData.getPerformances()) {
-      result +=
+    for (Performance performance : statementData.getPerformances()) {
+      result.append(
           String.format(
               "%15s:%12s%4s석\n",
-              statementData.playFor(perf).getName(),
-              usd(statementData.amountFor(perf)),
-              perf.getAudience());
+              statementData.getPlayName(performance),
+              usd(statementData.amountFor(performance)),
+              performance.getAudience()));
     }
 
-    result += String.format("총액: %s\n", usd(statementData.totalAmount()));
-    result += String.format("적립 포인트: %s점\n", statementData.totalVolumeCredits());
-    return result;
+    result.append(String.format("총액: %s\n", usd(statementData.totalAmount())));
+    result.append(String.format("적립 포인트: %s점\n", statementData.totalVolumeCredits()));
+    return result.toString();
   }
 
-  private String renderHtml() throws Exception {
-    String result = String.format("<h1>청구내역 (고객명: %s)\n</h1>", statementData.getCustomer());
-    result += "<table>\n";
+  private String renderHtml() {
+    StringBuilder result =
+        new StringBuilder(String.format("<h1>청구내역 (고객명: %s)\n</h1>", statementData.getCustomer()));
+    result.append("<table>\n");
 
-    result += "<tr><th>연극</th><th>좌석 수</th><th>금액</th>";
+    result.append("<tr><th>연극</th><th>좌석 수</th><th>금액</th>");
     for (Performance performance : statementData.getPerformances()) {
-      result +=
+      result.append(
           String.format(
               "<tr><td>%s</td><td>%s</td><td>%d석</td></tr>",
-              statementData.playFor(performance).getName(),
+              statementData.getPlayName(performance),
               usd(statementData.amountFor(performance)),
-              performance.getAudience());
+              performance.getAudience()));
     }
-    result += "</table><br>";
+    result.append("</table><br>");
 
-    result += String.format("총액: %s<br>", usd(statementData.totalAmount()));
-    result += String.format("적립 포인트: %s점<br>", statementData.totalVolumeCredits());
-    return result;
+    result.append(String.format("총액: %s<br>", usd(statementData.totalAmount())));
+    result.append(String.format("적립 포인트: %s점<br>", statementData.totalVolumeCredits()));
+    return result.toString();
   }
 
   private String usd(long aNumber) {

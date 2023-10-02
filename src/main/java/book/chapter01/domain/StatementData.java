@@ -12,6 +12,14 @@ public class StatementData {
   private final Play[] plays;
   private final PerformanceCalculatorFactory calculatorFactory = new PerformanceCalculatorFactory();
 
+  public String getPlayName(Performance performance) {
+    try {
+      return playFor(performance).getName();
+    } catch (Exception exception) {
+      return "";
+    }
+  }
+
   public String getCustomer() {
     return invoice.getCustomer();
   }
@@ -20,38 +28,40 @@ public class StatementData {
     return invoice.getPerformances();
   }
 
-  public int totalAmount() throws Exception {
-    int result = 0;
-    for (Performance perf : invoice.getPerformances()) {
-      result += amountFor(perf);
-    }
-    return result;
+  public int totalAmount() {
+    return Arrays.stream(invoice.getPerformances()).map(this::amountFor).reduce(0, Integer::sum);
   }
 
-  public int totalVolumeCredits() throws Exception {
-    int result = 0;
-    for (Performance perf : invoice.getPerformances()) {
-      result += volumeCreditsFor(perf);
-    }
-    return result;
+  public int totalVolumeCredits() {
+    return Arrays.stream(invoice.getPerformances())
+        .map(this::volumeCreditsFor)
+        .reduce(0, (Integer::sum));
   }
 
-  public Play playFor(Performance perf) {
+  public Play playFor(Performance performance) throws Exception {
     return Arrays.stream(plays)
-        .filter(p -> p.getPlayId().equals(perf.getPlayId()))
+        .filter(p -> p.getPlayId().equals(performance.getPlayId()))
         .findFirst()
-        .get();
+        .orElseThrow(() -> new Exception("해당하는 공연을 찾지 못했습니다."));
   }
 
-  public int amountFor(Performance aPerformance) throws Exception {
-    return calculatorFactory
-        .createPerformanceCalculator(aPerformance, playFor(aPerformance))
-        .getAmount();
+  public int amountFor(Performance performance) {
+    try {
+      return calculatorFactory
+          .createPerformanceCalculator(performance, playFor(performance))
+          .getAmount();
+    } catch (Exception exception) {
+      return 0;
+    }
   }
 
-  private int volumeCreditsFor(Performance aPerformance) throws Exception {
-    return calculatorFactory
-        .createPerformanceCalculator(aPerformance, playFor(aPerformance))
-        .getVolumeCredits();
+  private int volumeCreditsFor(Performance performance) {
+    try {
+      return calculatorFactory
+          .createPerformanceCalculator(performance, playFor(performance))
+          .getVolumeCredits();
+    } catch (Exception exception) {
+      return 0;
+    }
   }
 }
