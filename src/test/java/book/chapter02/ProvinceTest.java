@@ -2,6 +2,7 @@ package book.chapter02;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,23 @@ class ProvinceTest {
 
     // when
     province.getProducers().get(0).setProduction(20);
+    int actualShortFall = province.shortFall();
+    int actualProfit = province.profit();
+
+    // then
+    assertThat(actualShortFall).isEqualTo(shortFall);
+    assertThat(actualProfit).isEqualTo(profit);
+  }
+
+  @Test
+  @DisplayName("생산자가 존재하지 않는 경우 테스트")
+  void noProducers() {
+    // given
+    Province province = new Province("No Producers", -1, 20, new ArrayList<>());
+    int shortFall = -1;
+    int profit = -20;
+
+    // when
     int actualShortFall = province.shortFall();
     int actualProfit = province.profit();
 
