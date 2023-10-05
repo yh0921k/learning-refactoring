@@ -20,7 +20,10 @@ public class Application6_5 {
     someCustomers.add(new Customer(new Address("NO")));
     someCustomers.add(new Customer(new Address("NO")));
 
-    long numberOfNewEngland = someCustomers.stream().filter(Application6_5::isNewEngland).count();
+    long numberOfNewEngland =
+        someCustomers.stream()
+            .filter(customer -> refactoredIsNewEngland(customer.getAddress().getState()))
+            .count();
     System.out.println("numberOfNewEngland = " + numberOfNewEngland);
   }
 
