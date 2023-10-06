@@ -12,7 +12,6 @@ public class Application6_1 {
 
   public static Invoice createInvoice() {
     Invoice invoice = new Invoice();
-    invoice.dueDate = LocalDateTime.now().plusMonths(1L);
     invoice.customer = "yh0921k";
     invoice.orders.add(new Order(1000));
     invoice.orders.add(new Order(2000));
@@ -35,12 +34,14 @@ class FinancialObligation {
       outstanding += o.amount;
     }
 
+    recordDueDate(invoice);
+    printDetails(invoice, outstanding);
+  }
+
+  private void recordDueDate(Invoice invoice) {
     // 마감일(dueDate) 을 기록한다.
     LocalDateTime today = Clock.today();
     invoice.dueDate = today.plusDays(30);
-
-    printDetails(invoice, outstanding);
-
   }
 
   private void printDetails(Invoice invoice, int outstanding) {
