@@ -38,6 +38,15 @@ class FinancialObligation {
     printDetails(invoice, outstanding);
   }
 
+  private int calculateOutstanding(Invoice invoice) {
+    // 미해결 채무 (outstanding) 을 계산한다.
+    int outstanding = 0;
+    for (Order o : invoice.getOrders()) {
+      outstanding += o.amount;
+    }
+    return outstanding;
+  }
+
   private void recordDueDate(Invoice invoice) {
     // 마감일(dueDate) 을 기록한다.
     LocalDateTime today = Clock.today();
