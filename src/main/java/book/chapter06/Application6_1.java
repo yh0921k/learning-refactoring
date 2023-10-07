@@ -25,11 +25,11 @@ public class Application6_1 {
 
 class FinancialObligation {
   public void printOwing(Invoice invoice) {
-    int outstanding = 0;
 
     printBanner();
 
     // 미해결 채무 (outstanding) 을 계산한다.
+    int outstanding = 0;
     for (Order o : invoice.getOrders()) {
       outstanding += o.amount;
     }
