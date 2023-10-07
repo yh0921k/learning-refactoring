@@ -25,23 +25,20 @@ public class Application6_1 {
 
 class FinancialObligation {
   public void printOwing(Invoice invoice) {
-
     printBanner();
-
-    // 미해결 채무 (outstanding) 을 계산한다.
-    int outstanding = calculateOutstanding(invoice);
-
     recordDueDate(invoice);
+
+    final int outstanding = calculateOutstanding(invoice);
     printDetails(invoice, outstanding);
   }
 
   private int calculateOutstanding(Invoice invoice) {
     // 미해결 채무 (outstanding) 을 계산한다.
-    int outstanding = 0;
+    int result = 0;
     for (Order o : invoice.getOrders()) {
-      outstanding += o.amount;
+      result += o.amount;
     }
-    return outstanding;
+    return result;
   }
 
   private void recordDueDate(Invoice invoice) {
