@@ -9,12 +9,11 @@ public class Application8_6 {
     Queue<String> allocatedResources = new LinkedList<>();
     String result;
 
-    if(availableResources.size() == 0) {
+    if (availableResources.size() == 0) {
       result = "create result";
-      allocatedResources.add(result);
     } else {
       result = availableResources.remove();
-      allocatedResources.add(result);
     }
+    allocatedResources.add(result);
   }
 }
