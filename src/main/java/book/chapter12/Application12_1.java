@@ -12,18 +12,6 @@ class Party {
   }
 }
 
-class Employee extends Party {
-  int monthlyCost;
+class Employee extends Party {}
 
-  public int annualCost() {
-    return monthlyCost * 12;
-  }
-}
-
-class Department extends Party {
-  int monthlyCost;
-
-  public int annualCost() {
-    return monthlyCost * 12;
-  }
-}
+class Department extends Party {}
