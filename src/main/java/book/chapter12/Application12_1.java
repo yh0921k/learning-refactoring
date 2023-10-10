@@ -17,7 +17,7 @@ class Employee extends Party {
 class Department extends Party {
   int monthlyCost;
 
-  public int totalAnnualCost() {
+  public int annualCost() {
     return monthlyCost * 12;
   }
 }
