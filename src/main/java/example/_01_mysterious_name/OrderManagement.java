@@ -1,5 +1,6 @@
 package example._01_mysterious_name;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +14,10 @@ public class OrderManagement {
   private final Set<String> usernames = new HashSet<>();
   private final Set<String> orderNumbers = new HashSet<>();
 
+  /**
+   * 주어진 사용자 주문 리스트에 대해 각 사용자 이름과 주문번호를 읽어온다.
+   * @param userOrders 단일 사용자 주문
+   */
   private void refactorOrder(List<UserOrder> userOrders) {
     for (UserOrder userOrder : userOrders) {
       usernames.add(userOrder.getUsername());
