@@ -35,8 +35,8 @@ public class OrderManagement {
   public static void main(String[] args) {
     OrderManagement orderManagement = new OrderManagement();
     orderManagement.loadOrders();
-    orderManagement.getUsernames().forEach(System.out::println);
-    orderManagement.getOrderNumbers().forEach(System.out::println);
+    orderManagement.getUsernames().forEach(name -> System.out.println(name));
+    orderManagement.getOrderNumbers().forEach(orderNumber -> System.out.println(orderNumber));
   }
 
   private static List<UserOrder> getUserOrderFromAPI() {
