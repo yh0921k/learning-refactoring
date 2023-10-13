@@ -17,10 +17,10 @@ public class OrderManagement {
   private void loadOrders() {
     UserInfos data = getUserInfosFromAPI();
 
-    List<UserInfo> userInfos = data.getUserInfos();
-    for (UserInfo userInfo : userInfos) {
-      usernames.add(userInfo.getUsername());
-      orderNumbers.add(userInfo.getOrderNumber());
+    List<UserInfo> orders = data.getUserInfos();
+    for (UserInfo order : orders) {
+      usernames.add(order.getUsername());
+      orderNumbers.add(order.getOrderNumber());
     }
   }
 
