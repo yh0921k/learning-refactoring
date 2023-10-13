@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 public class OrderManagement {
 
-  private final Set<String> usernames = new HashSet<>();
+  private final Set<String> buyers = new HashSet<>();
   private final Set<String> orderNumbers = new HashSet<>();
 
   /**
@@ -19,13 +19,13 @@ public class OrderManagement {
 
     List<UserInfo> orders = data.getUserInfos();
     for (UserInfo order : orders) {
-      usernames.add(order.getUsername());
+      buyers.add(order.getUsername());
       orderNumbers.add(order.getOrderNumber());
     }
   }
 
-  public Set<String> getUsernames() {
-    return usernames;
+  public Set<String> getBuyers() {
+    return buyers;
   }
 
   public Set<String> getOrderNumbers() {
@@ -35,7 +35,7 @@ public class OrderManagement {
   public static void main(String[] args) {
     OrderManagement orderManagement = new OrderManagement();
     orderManagement.loadOrders();
-    orderManagement.getUsernames().forEach(System.out::println);
+    orderManagement.getBuyers().forEach(System.out::println);
     orderManagement.getOrderNumbers().forEach(System.out::println);
   }
 
