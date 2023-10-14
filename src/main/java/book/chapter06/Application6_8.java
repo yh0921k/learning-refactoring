@@ -5,10 +5,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 public class Application6_8 {
   public static void main(String[] args) {
     Station station = createSampleStation();
+    OperationPlan operationPlan = new OperationPlan(50, 55);
+
+    List<Reading> alerts =
+        readingsOutsideRange(
+            station, operationPlan.getTemperatureFloor(), operationPlan.getTemperatureCeiling());
   }
 
   public static List<Reading> readingsOutsideRange(Station station, int min, int max) {
@@ -43,4 +49,11 @@ class Station {
 class Reading {
   private int temp;
   private LocalDateTime time;
+}
+
+@Getter
+@AllArgsConstructor
+class OperationPlan {
+  private int temperatureFloor;
+  private int temperatureCeiling;
 }
