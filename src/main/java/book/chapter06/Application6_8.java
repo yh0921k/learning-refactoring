@@ -1,14 +1,20 @@
 package book.chapter06;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 public class Application6_8 {
   public static void main(String[] args) {
     Station station = createSampleStation();
+  }
+
+  public static List<Reading> readingsOutsideRange(Station station, int min, int max) {
+    return station.getReadings().stream()
+        .filter(r -> r.getTemp() < min || r.getTemp() > max)
+        .collect(Collectors.toList());
   }
 
   private static Station createSampleStation() {
