@@ -18,14 +18,15 @@ public class Application6_8 {
         readingsOutsideRange(
             station,
             operationPlan.getTemperatureFloor(),
-            operationPlan.getTemperatureCeiling(),
             range);
+
+    System.out.println("alerts = " + alerts);
   }
 
   public static List<Reading> readingsOutsideRange(
-      Station station, int min, int max, NumberRange range) {
+      Station station, int min, NumberRange range) {
     return station.getReadings().stream()
-        .filter(r -> r.getTemp() < min || r.getTemp() > max)
+        .filter(r -> r.getTemp() < min || r.getTemp() > range.getMax())
         .collect(Collectors.toList());
   }
 
