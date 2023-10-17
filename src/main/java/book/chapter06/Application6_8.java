@@ -14,19 +14,14 @@ public class Application6_8 {
     NumberRange range =
         new NumberRange(operationPlan.getTemperatureFloor(), operationPlan.getTemperatureCeiling());
 
-    List<Reading> alerts =
-        readingsOutsideRange(
-            station,
-            operationPlan.getTemperatureFloor(),
-            range);
+    List<Reading> alerts = readingsOutsideRange(station, range);
 
     System.out.println("alerts = " + alerts);
   }
 
-  public static List<Reading> readingsOutsideRange(
-      Station station, int min, NumberRange range) {
+  public static List<Reading> readingsOutsideRange(Station station, NumberRange range) {
     return station.getReadings().stream()
-        .filter(r -> r.getTemp() < min || r.getTemp() > range.getMax())
+        .filter(r -> r.getTemp() < range.getMin() || r.getTemp() > range.getMax())
         .collect(Collectors.toList());
   }
 
