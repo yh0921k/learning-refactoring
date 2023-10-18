@@ -21,13 +21,17 @@ class Order {
   private int quantity;
 
   public double getPrice() {
-    final int basePrice = quantity * item.getPrice();
+    final int basePrice = getBasePrice();
     double discountFactor = 0.98;
 
     if (basePrice > 1000) {
       discountFactor -= 0.03;
     }
     return basePrice * discountFactor;
+  }
+
+  private int getBasePrice() {
+    return quantity * item.getPrice();
   }
 }
 
