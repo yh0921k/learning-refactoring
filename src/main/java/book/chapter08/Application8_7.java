@@ -21,13 +21,7 @@ public class Application8_7 {
   }
 
   private static int getYoungest(List<Person> persons) {
-    int youngest = persons.isEmpty() ? Integer.MAX_VALUE : persons.get(0).getAge();
-    for (Person person : persons) {
-      if (person.getAge() < youngest) {
-        youngest = person.getAge();
-      }
-    }
-    return youngest;
+    return persons.stream().mapToInt(Person::getAge).min().orElse(Integer.MAX_VALUE);
   }
 
   private static List<Person> getPersonList() {
