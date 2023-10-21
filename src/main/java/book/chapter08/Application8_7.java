@@ -17,11 +17,7 @@ public class Application8_7 {
   }
 
   private static int getTotalSalary(List<Person> persons) {
-    int totalSalary = 0;
-    for (Person person : persons) {
-      totalSalary += person.getSalary();
-    }
-    return totalSalary;
+    return persons.stream().mapToInt(Person::getSalary).sum();
   }
 
   private static int getYoungest(List<Person> persons) {
