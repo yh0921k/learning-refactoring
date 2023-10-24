@@ -14,13 +14,7 @@ public class Application10_1 {
     LocalDate paymentDate = request.getPaymentDateTime().toLocalDate();
     int totalAmount = request.getAmount() * request.getQuantity();
 
-    double charge;
-    if (summer(paymentDate)) {
-      charge = summerCharge(totalAmount);
-    } else {
-      charge = regularCharge(totalAmount);
-    }
-
+    double charge = summer(paymentDate) ? summerCharge(totalAmount) : regularCharge(totalAmount);
     System.out.println("charge = " + charge);
   }
 
