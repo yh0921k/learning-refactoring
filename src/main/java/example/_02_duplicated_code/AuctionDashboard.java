@@ -9,17 +9,17 @@ public class AuctionDashboard {
   private void printOngoingItems() {
     Auction auction = getAuction("Seoul");
     List<String> ongoingItems = getItems(auction);
+    print(ongoingItems);
+  }
 
-    // Print ongoing items
+  private static void print(List<String> ongoingItems) {
     ongoingItems.forEach(System.out::println);
   }
 
   private void printInProgressItems(String region) {
     Auction auction = getAuction(region);
     List<String> inProgressItems = getItems(auction);
-
-    // Print ongoing items
-    inProgressItems.forEach(System.out::println);
+    print(inProgressItems);
   }
 
   private static List<String> getItems(Auction auction) {
