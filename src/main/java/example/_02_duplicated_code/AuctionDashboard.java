@@ -7,19 +7,15 @@ import lombok.Getter;
 
 public class AuctionDashboard {
   private void printOngoingItems() {
-    Auction auction = getAuction("Seoul");
-    List<String> ongoingItems = getItems(auction);
-    print(ongoingItems);
+    print(getItems(getAuction("Seoul")));
+  }
+
+  private void printInProgressItems(String region) {
+    print(getItems(getAuction(region)));
   }
 
   private static void print(List<String> ongoingItems) {
     ongoingItems.forEach(System.out::println);
-  }
-
-  private void printInProgressItems(String region) {
-    Auction auction = getAuction(region);
-    List<String> inProgressItems = getItems(auction);
-    print(inProgressItems);
   }
 
   private static List<String> getItems(Auction auction) {
