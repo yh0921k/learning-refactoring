@@ -7,9 +7,7 @@ import lombok.Getter;
 
 public class AuctionDashboard {
   private void printOngoingItems() {
-    // Get auction data through auction hubs in specific regions.
-    AuctionHub auctionHub = AuctionHub.connect("Seoul");
-    Auction auction = auctionHub.getAuction();
+    Auction auction = getAuction("Seoul");
 
     // Get ongoing auction items.
     List<String> ongoingItems = new ArrayList<>();
@@ -20,9 +18,7 @@ public class AuctionDashboard {
   }
 
   private void printInProgressItems(String region) {
-    // Get auction data through auction hubs in specific regions.
-    AuctionHub auctionHub = AuctionHub.connect(region);
-    Auction auction = auctionHub.getAuction();
+    Auction auction = getAuction(region);
 
     // Get ongoing auction items.
     List<String> inProgressItems = new ArrayList<>();
@@ -30,6 +26,11 @@ public class AuctionDashboard {
 
     // Print ongoing items
     inProgressItems.forEach(System.out::println);
+  }
+
+  private static Auction getAuction(String region) {
+    AuctionHub auctionHub = AuctionHub.connect(region);
+    return auctionHub.getAuction();
   }
 
   public static void main(String[] args) {
