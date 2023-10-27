@@ -9,18 +9,20 @@ public class AuctionDashboard {
   private void printOngoingItems() {
     AuctionHub auctionHub = AuctionHub.connect("Seoul");
     Auction auction = auctionHub.getAuction();
-    List<String> ongoingItems = new ArrayList<>();
 
+    List<String> ongoingItems = new ArrayList<>();
     auction.getItems().forEach(item -> ongoingItems.add(item.getName()));
+
     ongoingItems.forEach(System.out::println);
   }
 
   private void printInProgressItems(String region) {
-    List<String> inProgressItems = new ArrayList<>();
     AuctionHub auctionHub = AuctionHub.connect(region);
     Auction auction = auctionHub.getAuction();
 
+    List<String> inProgressItems = new ArrayList<>();
     auction.getItems().forEach(item -> inProgressItems.add(item.getName()));
+
     inProgressItems.forEach(System.out::println);
   }
 
