@@ -7,26 +7,21 @@ import lombok.Getter;
 
 public class AuctionDashboard {
   private void printOngoingItems() {
-    print(getItems(getAuction("Seoul")));
-  }
+    AuctionHub auctionHub = AuctionHub.connect("Seoul");
+    Auction auction = auctionHub.getAuction();
+    List<String> ongoingItems = new ArrayList<>();
 
-  private void printInProgressItems(String region) {
-    print(getItems(getAuction(region)));
-  }
-
-  private static void print(List<String> ongoingItems) {
+    auction.getItems().forEach(item -> ongoingItems.add(item.getName()));
     ongoingItems.forEach(System.out::println);
   }
 
-  private static List<String> getItems(Auction auction) {
-    List<String> items = new ArrayList<>();
-    auction.getItems().forEach(item -> items.add(item.getName()));
-    return items;
-  }
-
-  private static Auction getAuction(String region) {
+  private void printInProgressItems(String region) {
+    List<String> inProgressItems = new ArrayList<>();
     AuctionHub auctionHub = AuctionHub.connect(region);
-    return auctionHub.getAuction();
+    Auction auction = auctionHub.getAuction();
+
+    auction.getItems().forEach(item -> inProgressItems.add(item.getName()));
+    inProgressItems.forEach(System.out::println);
   }
 
   public static void main(String[] args) {
