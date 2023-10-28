@@ -6,7 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 public class AuctionDashboard {
-  private void printOngoingItems() {
+  public static void main(String[] args) {
+    OngoingDashboard ongoingDashboard = new OngoingDashboard();
+    ongoingDashboard.printOngoingItems();
+
+    InProgressDashboard inProgressDashboard = new InProgressDashboard();
+    inProgressDashboard.printInProgressItems("Seoul");
+  }
+}
+
+@Getter
+@AllArgsConstructor
+class OngoingDashboard extends AuctionDashboard {
+  public void printOngoingItems() {
     AuctionHub auctionHub = AuctionHub.connect("Seoul");
     Auction auction = auctionHub.getAuction();
 
@@ -15,8 +27,12 @@ public class AuctionDashboard {
 
     ongoingItems.forEach(System.out::println);
   }
+}
 
-  private void printInProgressItems(String region) {
+@Getter
+@AllArgsConstructor
+class InProgressDashboard extends AuctionDashboard {
+  public void printInProgressItems(String region) {
     AuctionHub auctionHub = AuctionHub.connect(region);
     Auction auction = auctionHub.getAuction();
 
@@ -24,12 +40,6 @@ public class AuctionDashboard {
     auction.getItems().forEach(item -> inProgressItems.add(item.getName()));
 
     inProgressItems.forEach(System.out::println);
-  }
-
-  public static void main(String[] args) {
-    AuctionDashboard auctionDashboard = new AuctionDashboard();
-    auctionDashboard.printOngoingItems();
-    auctionDashboard.printInProgressItems("Seoul");
   }
 }
 
