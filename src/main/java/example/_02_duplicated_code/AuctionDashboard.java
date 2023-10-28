@@ -11,7 +11,7 @@ public class AuctionDashboard {
     ongoingDashboard.printOngoingItems();
 
     InProgressDashboard inProgressDashboard = new InProgressDashboard();
-    inProgressDashboard.printInProgressItems("Seoul");
+    inProgressDashboard.printItems("Seoul");
   }
 }
 
@@ -37,7 +37,7 @@ class OngoingDashboard extends AuctionDashboard {
 @Getter
 @AllArgsConstructor
 class InProgressDashboard extends AuctionDashboard {
-  public void printInProgressItems(String region) {
+  public void printItems(String region) {
     AuctionHub auctionHub = AuctionHub.connect(region);
     Auction auction = auctionHub.getAuction();
 
