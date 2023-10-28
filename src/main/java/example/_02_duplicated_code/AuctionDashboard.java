@@ -13,30 +13,7 @@ public class AuctionDashboard {
     InProgressDashboard inProgressDashboard = new InProgressDashboard();
     inProgressDashboard.printItems("Seoul");
   }
-}
 
-@Getter
-@AllArgsConstructor
-class OngoingDashboard extends AuctionDashboard {
-
-  public void printOngoingItems() {
-    printItems("Seoul");
-  }
-
-  public void printItems(String region) {
-    AuctionHub auctionHub = AuctionHub.connect(region);
-    Auction auction = auctionHub.getAuction();
-
-    List<String> ongoingItems = new ArrayList<>();
-    auction.getItems().forEach(item -> ongoingItems.add(item.getName()));
-
-    ongoingItems.forEach(System.out::println);
-  }
-}
-
-@Getter
-@AllArgsConstructor
-class InProgressDashboard extends AuctionDashboard {
   public void printItems(String region) {
     AuctionHub auctionHub = AuctionHub.connect(region);
     Auction auction = auctionHub.getAuction();
@@ -47,6 +24,18 @@ class InProgressDashboard extends AuctionDashboard {
     inProgressItems.forEach(System.out::println);
   }
 }
+
+@Getter
+@AllArgsConstructor
+class OngoingDashboard extends AuctionDashboard {
+  public void printOngoingItems() {
+    super.printItems("Seoul");
+  }
+}
+
+@Getter
+@AllArgsConstructor
+class InProgressDashboard extends AuctionDashboard {}
 
 @Getter
 @AllArgsConstructor
