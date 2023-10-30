@@ -13,6 +13,10 @@ public class Application10_4 {
     System.out.println("speeds(birds) = " + speeds(birds));
   }
 
+  private static List<Bird> createSampleBirds() {
+    return List.of(new Bird("유럽 제비"), new Bird("아프리카 제비"), new Bird("노르웨이 파랑 앵무"), new Bird("없는종"));
+  }
+
   public static Bird createBird(Bird bird) {
     switch (bird.type) {
       case "유럽 제비":
@@ -24,10 +28,6 @@ public class Application10_4 {
       default:
         return new Bird(bird);
     }
-  }
-
-  private static List<Bird> createSampleBirds() {
-    return List.of(new Bird("유럽 제비"), new Bird("아프리카 제비"), new Bird("노르웨이 파랑 앵무"), new Bird("없는종"));
   }
 
   public static Map<String, String> plumages(List<Bird> birds) {
@@ -62,7 +62,7 @@ class Bird {
   public String plumage() {
     switch (type) {
       case "유럽 제비":
-        return "보통이다.";
+        return null;
       case "아프리카 제비":
         return numberOfCoconuts > 2 ? "지쳤다." : "보통이다.";
       case "노르웨이 파랑 앵무":
@@ -89,6 +89,10 @@ class Bird {
 class EuropeanSwallow extends Bird {
   public EuropeanSwallow(Bird bird) {
     super(bird);
+  }
+
+  public String plumage() {
+    return "보통이다.";
   }
 }
 
