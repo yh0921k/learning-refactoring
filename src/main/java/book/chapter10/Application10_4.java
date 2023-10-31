@@ -66,7 +66,7 @@ class Bird {
       case "아프리카 제비":
         return null;
       case "노르웨이 파랑 앵무":
-        return voltage > 100 ? "그을렸다." : "예쁘다";
+        return null;
       default:
         return "알 수 없다.";
     }
@@ -109,5 +109,9 @@ class AfricanSwallow extends Bird {
 class NorwegianBlueParrot extends Bird {
   public NorwegianBlueParrot(Bird bird) {
     super(bird);
+  }
+
+  public String plumage() {
+    return voltage > 100 ? "그을렸다." : "예쁘다";
   }
 }
