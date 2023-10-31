@@ -60,16 +60,7 @@ class Bird {
   }
 
   public String plumage() {
-    switch (type) {
-      case "유럽 제비":
-        return null;
-      case "아프리카 제비":
-        return null;
-      case "노르웨이 파랑 앵무":
-        return null;
-      default:
-        return "알 수 없다.";
-    }
+    return "알 수 없다.";
   }
 
   public int airSpeedVelocity() {
