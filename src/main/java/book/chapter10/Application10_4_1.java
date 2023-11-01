@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.*;
 
-public class Application10_4 {
+public class Application10_4_1 {
   public static void main(String[] args) {
     List<Bird> birds = createSampleBirds();
 
