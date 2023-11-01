@@ -64,16 +64,7 @@ class Bird {
   }
 
   public int airSpeedVelocity() {
-    switch (type) {
-      case "유럽 제비":
-        return 35;
-      case "아프리카 제비":
-        return 40 - 2 * numberOfCoconuts;
-      case "노르웨이 파랑 앵무":
-        return isNailed ? 0 : 10 + voltage / 10;
-      default:
         return 0;
-    }
   }
 }
 
@@ -85,6 +76,10 @@ class EuropeanSwallow extends Bird {
   public String plumage() {
     return "보통이다.";
   }
+
+  public int airSpeedVelocity() {
+    return 35;
+  }
 }
 
 class AfricanSwallow extends Bird {
@@ -95,6 +90,10 @@ class AfricanSwallow extends Bird {
   public String plumage() {
     return numberOfCoconuts > 2 ? "지쳤다." : "보통이다.";
   }
+
+  public int airSpeedVelocity() {
+    return 40 - 2 * numberOfCoconuts;
+  }
 }
 
 class NorwegianBlueParrot extends Bird {
@@ -104,5 +103,9 @@ class NorwegianBlueParrot extends Bird {
 
   public String plumage() {
     return voltage > 100 ? "그을렸다." : "예쁘다";
+  }
+
+  public int airSpeedVelocity() {
+    return isNailed ? 0 : 10 + voltage / 10;
   }
 }
