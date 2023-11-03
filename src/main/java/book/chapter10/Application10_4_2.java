@@ -19,6 +19,12 @@ public class Application10_4_2 {
   }
 }
 
+class ExperiencedChinaRating extends Rating {
+  public ExperiencedChinaRating(Voyage voyage, History history) {
+    super(voyage, history);
+  }
+}
+
 class Rating {
   Voyage voyage;
   History history;
