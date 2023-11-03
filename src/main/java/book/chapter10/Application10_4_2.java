@@ -17,6 +17,13 @@ public class Application10_4_2 {
     Rating rating = new Rating(voyage, history);
     System.out.println(rating.rating(voyage, history));
   }
+
+  public static Rating createRating(Voyage voyage, History history) {
+    if (voyage.zone.equals("중국") && history.hasChina()) {
+      return new ExperiencedChinaRating(voyage, history);
+    }
+    return new Rating(voyage, history);
+  }
 }
 
 class ExperiencedChinaRating extends Rating {
@@ -57,13 +64,8 @@ class Rating {
     int result = 1;
     if (history.getSize() < 5) result += 4;
     result += history.voyages.stream().filter(v -> v.profit < 0).count();
-    if (voyage.zone.equals("중국") && hasChina(history)) result -= 2;
+    if (voyage.zone.equals("중국") && history.hasChina()) result -= 2;
     return Math.max(result, 0);
-  }
-
-  // 중국 경유 여부
-  private boolean hasChina(History history) {
-    return history.voyages.stream().anyMatch(v -> v.zone.equals("중국"));
   }
 
   // 수익 요인
@@ -71,7 +73,7 @@ class Rating {
     int result = 2;
     if (voyage.zone.equals("중국")) result += 1;
     if (voyage.zone.equals("동인도")) result += 1;
-    if (voyage.zone.equals("중국") && hasChina(history)) {
+    if (voyage.zone.equals("중국") && history.hasChina()) {
       result += 3;
       if (history.getSize() > 10) result += 1;
       if (voyage.length > 12) result += 1;
@@ -100,5 +102,9 @@ class History {
 
   public int getSize() {
     return voyages.size();
+  }
+
+  public boolean hasChina() {
+    return voyages.stream().anyMatch(v -> v.zone.equals("중국"));
   }
 }
