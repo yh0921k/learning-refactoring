@@ -14,7 +14,7 @@ public class Application10_4_2 {
             new Voyage("중국", 0, -2),
             new Voyage("서아프리카", 0, 7));
     History history = new History(voyages);
-    Rating rating = new Rating(voyage, history);
+    Rating rating = createRating(voyage, history);
     System.out.println(rating.rating(voyage, history));
   }
 
