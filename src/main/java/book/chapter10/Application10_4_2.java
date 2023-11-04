@@ -30,6 +30,11 @@ class ExperiencedChinaRating extends Rating {
   public ExperiencedChinaRating(Voyage voyage, History history) {
     super(voyage, history);
   }
+
+  @Override
+  protected int captainHistoryRisk(Voyage voyage, History history) {
+    return super.captainHistoryRisk(voyage, history) - 2;
+  }
 }
 
 class Rating {
@@ -60,11 +65,10 @@ class Rating {
   }
 
   // 선장의 항해 이력 위험 요소
-  private int captainHistoryRisk(Voyage voyage, History history) {
+  protected int captainHistoryRisk(Voyage voyage, History history) {
     int result = 1;
     if (history.getSize() < 5) result += 4;
     result += history.voyages.stream().filter(v -> v.profit < 0).count();
-    if (voyage.zone.equals("중국") && history.hasChina()) result -= 2;
     return Math.max(result, 0);
   }
 
