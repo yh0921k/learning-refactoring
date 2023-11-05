@@ -35,6 +35,17 @@ class ExperiencedChinaRating extends Rating {
   protected int captainHistoryRisk(Voyage voyage, History history) {
     return super.captainHistoryRisk(voyage, history) - 2;
   }
+
+  @Override
+  protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
+    int result = 0;
+    result += 3;
+    if (history.getSize() > 10) result += 1;
+    if (voyage.length > 12) result += 1;
+    if (voyage.length > 18) result -= 1;
+
+    return result;
+  }
 }
 
 class Rating {
@@ -81,17 +92,10 @@ class Rating {
     return result;
   }
 
-  private int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
+  protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
     int result = 0;
-    if (voyage.zone.equals("중국") && history.hasChina()) {
-      result += 3;
-      if (history.getSize() > 10) result += 1;
-      if (voyage.length > 12) result += 1;
-      if (voyage.length > 18) result -= 1;
-    } else {
-      if (history.getSize() > 8) result += 1;
-      if (voyage.length > 14) result -= 1;
-    }
+    if (history.getSize() > 8) result += 1;
+    if (voyage.length > 14) result -= 1;
     return result;
   }
 }
