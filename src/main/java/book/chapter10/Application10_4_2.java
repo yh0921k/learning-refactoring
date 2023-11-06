@@ -94,9 +94,13 @@ class Rating {
 
   protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
     int result = 0;
-    if (history.getSize() > 8) result += 1;
+    result += historyLengthFactor(history);
     if (voyage.length > 14) result -= 1;
     return result;
+  }
+
+  private int historyLengthFactor(History history) {
+    return history.getSize() > 8 ? 1 : 0;
   }
 }
 
