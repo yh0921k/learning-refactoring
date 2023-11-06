@@ -40,11 +40,15 @@ class ExperiencedChinaRating extends Rating {
   protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
     int result = 0;
     result += 3;
-    if (history.getSize() > 10) result += 1;
+    result += historyLengthFactor(history);
     if (voyage.length > 12) result += 1;
     if (voyage.length > 18) result -= 1;
 
     return result;
+  }
+
+  private int historyLengthFactor(History history) {
+    return history.getSize() > 10 ? 1 : 0;
   }
 }
 
