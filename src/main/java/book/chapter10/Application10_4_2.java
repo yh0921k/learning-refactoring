@@ -37,7 +37,7 @@ class ExperiencedChinaRating extends Rating {
   }
 
   @Override
-  protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
+  protected int voyageLengthFactor(Voyage voyage) {
     int result = 0;
     result += 3;
     if (voyage.length > 12) result += 1;
@@ -93,11 +93,11 @@ class Rating {
     if (voyage.zone.equals("중국")) result += 1;
     if (voyage.zone.equals("동인도")) result += 1;
     result += historyLengthFactor(history);
-    result += voyageAndHistoryLengthFactor(voyage, history);
+    result += voyageLengthFactor(voyage);
     return result;
   }
 
-  protected int voyageAndHistoryLengthFactor(Voyage voyage, History history) {
+  protected int voyageLengthFactor(Voyage voyage) {
     int result = 0;
     if (voyage.length > 14) result -= 1;
     return result;
