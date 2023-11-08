@@ -39,7 +39,6 @@ class ExperiencedChinaRating extends Rating {
   @Override
   protected int voyageLengthFactor(Voyage voyage) {
     int result = 0;
-    result += 3;
     if (voyage.length > 12) result += 1;
     if (voyage.length > 18) result -= 1;
 
@@ -49,6 +48,11 @@ class ExperiencedChinaRating extends Rating {
   @Override
   protected int historyLengthFactor(History history) {
     return history.getSize() > 10 ? 1 : 0;
+  }
+
+  @Override
+  protected int voyageProfitFactor(Voyage voyage, History history) {
+    return super.voyageProfitFactor(voyage, history) + 3;
   }
 }
 
@@ -88,7 +92,7 @@ class Rating {
   }
 
   // 수익 요인
-  private int voyageProfitFactor(Voyage voyage, History history) {
+  protected int voyageProfitFactor(Voyage voyage, History history) {
     int result = 2;
     if (voyage.zone.equals("중국")) result += 1;
     if (voyage.zone.equals("동인도")) result += 1;
