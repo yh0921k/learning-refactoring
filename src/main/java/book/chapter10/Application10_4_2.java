@@ -98,9 +98,7 @@ class Rating {
   }
 
   protected int voyageLengthFactor(Voyage voyage) {
-    int result = 0;
-    if (voyage.length > 14) result -= 1;
-    return result;
+    return voyage.length > 14 ? -1 : 0;
   }
 
   protected int historyLengthFactor(History history) {
