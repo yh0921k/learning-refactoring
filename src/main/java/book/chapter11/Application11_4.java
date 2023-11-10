@@ -5,9 +5,6 @@ public class Application11_4 {
     HeatingPlan heatingPlan = new HeatingPlan(new Range(18, 22));
     Room room = new Room(new Range(19, 25));
 
-    int low = room.daysTempRange.low;
-    int high = room.daysTempRange.high;
-
     if (!heatingPlan.refactoredWithinRange(room.daysTempRange)) {
       throw new Exception("방 온도가 지정 범위를 벗어났습니다.");
     }
