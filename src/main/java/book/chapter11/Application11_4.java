@@ -18,12 +18,8 @@ class HeatingPlan {
     this.temperatureRange = temperatureRange;
   }
 
-  public boolean withinRange(int bottom, int top) {
-    return (bottom >= temperatureRange.low) && (top <= temperatureRange.high);
-  }
-
   public boolean refactoredWithinRange(Range range) {
-    return this.withinRange(range.low, range.high);
+    return (range.low >= temperatureRange.low) && (range.high <= temperatureRange.high);
   }
 }
 
