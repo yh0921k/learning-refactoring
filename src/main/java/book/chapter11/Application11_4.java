@@ -5,8 +5,9 @@ public class Application11_4 {
     HeatingPlan heatingPlan = new HeatingPlan(new Range(18, 22));
     Room room = new Room(new Range(19, 25));
 
-    int low = room.daysTempRange.low;
-    int high = room.daysTempRange.high;
+    Range tempRange = room.daysTempRange;
+    int low = tempRange.low;
+    int high = tempRange.high;
 
     boolean isWithinRange = heatingPlan.withinRange(low, high);
     if (!isWithinRange) {
