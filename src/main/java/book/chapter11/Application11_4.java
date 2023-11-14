@@ -6,17 +6,10 @@ public class Application11_4 {
     Room room = new Room(new Range(19, 25));
 
     Range tempRange = room.daysTempRange;
-    boolean isWithinRange = refactoredWithinRange(heatingPlan, tempRange);
+    boolean isWithinRange = heatingPlan.refactoredWithinRange(tempRange);
     if (!isWithinRange) {
       throw new Exception("방 온도가 지정 범위를 벗어났습니다.");
     }
-  }
-
-  private static boolean refactoredWithinRange(HeatingPlan heatingPlan, Range tempRange) {
-    int low = tempRange.low;
-    int high = tempRange.high;
-
-    return heatingPlan.withinRange(low, high);
   }
 }
 
@@ -29,6 +22,13 @@ class HeatingPlan {
 
   public boolean withinRange(int bottom, int top) {
     return (bottom >= temperatureRange.low) && (top <= temperatureRange.high);
+  }
+
+  public boolean refactoredWithinRange(Range tempRange) {
+    int low = tempRange.low;
+    int high = tempRange.high;
+
+    return withinRange(low, high);
   }
 }
 
