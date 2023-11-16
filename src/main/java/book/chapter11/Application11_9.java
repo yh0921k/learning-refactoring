@@ -12,6 +12,13 @@ public class Application11_9 {
 
   public static int score(
       Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
+    return new Scorer().execute(candidate, medicalExam, scoringGuide);
+  }
+}
+
+class Scorer {
+  public int execute (
+      Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
     int result = 0;
     int healthLevel = 0;
     boolean highMedicalRiskFlag = false;
