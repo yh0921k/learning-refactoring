@@ -11,18 +11,22 @@ public class Application11_9 {
   }
 
   public static int score(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
-    return new Scorer(candidate).execute(medicalExam, scoringGuide);
+    return new Scorer(candidate, medicalExam, scoringGuide).execute();
   }
 }
 
 class Scorer {
-  private Candidate candidate;
+  private final Candidate candidate;
+  private final MedicalExam medicalExam;
+  private final ScoringGuide scoringGuide;
 
-  public Scorer(Candidate candidate) {
+  public Scorer(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
     this.candidate = candidate;
+    this.medicalExam = medicalExam;
+    this.scoringGuide = scoringGuide;
   }
 
-  public int execute(MedicalExam medicalExam, ScoringGuide scoringGuide) {
+  public int execute() {
     int result = 0;
     int healthLevel = 0;
     boolean highMedicalRiskFlag = false;
