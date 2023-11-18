@@ -33,10 +33,7 @@ class Scorer {
   }
 
   public int execute() {
-    if (medicalExam.isSmoker) {
-      healthLevel += 10;
-      highMedicalRiskFlag = true;
-    }
+    scoreSmoking();
 
     if (scoringGuide.stateWithLowCertification(candidate.originalState)) {
       certificationGrade = "low";
@@ -46,6 +43,13 @@ class Scorer {
     // 비슷한 코드가 한 참 이어짐
     result -= Math.max(healthLevel - 5, 0);
     return result;
+  }
+
+  private void scoreSmoking() {
+    if (medicalExam.isSmoker) {
+      healthLevel += 10;
+      highMedicalRiskFlag = true;
+    }
   }
 }
 
