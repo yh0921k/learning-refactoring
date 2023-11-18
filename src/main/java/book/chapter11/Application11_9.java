@@ -20,6 +20,12 @@ class Scorer {
   private final MedicalExam medicalExam;
   private final ScoringGuide scoringGuide;
 
+  private int result;
+  private int healthLevel;
+  private boolean highMedicalRiskFlag;
+  private String certificationGrade = "regular";
+
+
   public Scorer(Candidate candidate, MedicalExam medicalExam, ScoringGuide scoringGuide) {
     this.candidate = candidate;
     this.medicalExam = medicalExam;
@@ -27,16 +33,11 @@ class Scorer {
   }
 
   public int execute() {
-    int result = 0;
-    int healthLevel = 0;
-    boolean highMedicalRiskFlag = false;
-
     if (medicalExam.isSmoker) {
       healthLevel += 10;
       highMedicalRiskFlag = true;
     }
 
-    String certificationGrade = "regular";
     if (scoringGuide.stateWithLowCertification(candidate.originalState)) {
       certificationGrade = "low";
       result -= 5;
