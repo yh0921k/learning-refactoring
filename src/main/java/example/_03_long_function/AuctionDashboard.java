@@ -71,7 +71,7 @@ public class AuctionDashboard {
     try {
       participants.sort(Comparator.comparing(Participant::getName));
 
-      writer.print(createHeader(participants, totalNumberOfAuctions));
+      writer.print(createHeader(participants.size(), totalNumberOfAuctions));
 
       participants.forEach(
           p -> {
@@ -103,11 +103,10 @@ public class AuctionDashboard {
     }
   }
 
-  private StringBuilder createHeader(List<Participant> participants,
-      int totalNumberOfAuctions) {
+  private StringBuilder createHeader(int totalNumberOfParticipants, int totalNumberOfAuctions) {
     /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
     StringBuilder header =
-        new StringBuilder(String.format("| 참여자 (%d) |", participants.size()));
+        new StringBuilder(String.format("| 참여자 (%d) |", totalNumberOfParticipants));
 
     for (int index = 1; index <= totalNumberOfAuctions; index++) {
       header.append(String.format(" %d주차 |", index));
