@@ -71,8 +71,7 @@ public class AuctionDashboard {
     try {
       participants.sort(Comparator.comparing(Participant::getName));
 
-      StringBuilder header = createHeader(participants, totalNumberOfAuctions);
-      writer.print(header);
+      writer.print(createHeader(participants, totalNumberOfAuctions));
 
       participants.forEach(
           p -> {
