@@ -71,17 +71,7 @@ public class AuctionDashboard {
     try {
       participants.sort(Comparator.comparing(Participant::getName));
 
-      /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
-      StringBuilder header =
-          new StringBuilder(String.format("| 참여자 (%d) |", participants.size()));
-
-      for (int index = 1; index <= totalNumberOfAuctions; index++) {
-        header.append(String.format(" %d주차 |", index));
-      }
-      header.append(" 참석율 |\n");
-
-      header.append("| --- ".repeat(Math.max(0, totalNumberOfAuctions + 2)));
-      header.append("|\n");
+      StringBuilder header = createHeader(participants, totalNumberOfAuctions);
       writer.print(header);
 
       participants.forEach(
@@ -112,5 +102,21 @@ public class AuctionDashboard {
       writer.close();
       fileWriter.close();
     }
+  }
+
+  private StringBuilder createHeader(List<Participant> participants,
+      int totalNumberOfAuctions) {
+    /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
+    StringBuilder header =
+        new StringBuilder(String.format("| 참여자 (%d) |", participants.size()));
+
+    for (int index = 1; index <= totalNumberOfAuctions; index++) {
+      header.append(String.format(" %d주차 |", index));
+    }
+    header.append(" 참석율 |\n");
+
+    header.append("| --- ".repeat(Math.max(0, totalNumberOfAuctions + 2)));
+    header.append("|\n");
+    return header;
   }
 }
