@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -75,17 +74,15 @@ public class AuctionDashboard {
 
       participants.forEach(
           p -> {
-            String name = p.getName();
-            Map<Integer, Boolean> participatingAuctions = p.getParticipatingAuctions();
-
             long count =
-                participatingAuctions.values().stream().filter(v -> v == true).count();
+                p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
             double rate = count * 100 / totalNumberOfAuctions;
 
             /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
             StringBuilder line = new StringBuilder();
             for (int i = 1; i <= totalNumberOfAuctions; i++) {
-              if (participatingAuctions.containsKey(i) && participatingAuctions.get(i)) {
+              if (p.getParticipatingAuctions().containsKey(i)
+                  && p.getParticipatingAuctions().get(i)) {
                 line.append("|:white_check_mark:");
               } else {
                 line.append("|:x:");
@@ -93,8 +90,7 @@ public class AuctionDashboard {
             }
 
             String markdownForParticipant =
-                String.format(
-                    "| %s %s | %.2f%% |\n", name, line, rate);
+                String.format("| %s %s | %.2f%% |\n", p.getName(), line, rate);
             writer.print(markdownForParticipant);
           });
     } finally{
