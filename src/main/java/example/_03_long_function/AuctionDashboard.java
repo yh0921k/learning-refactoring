@@ -78,10 +78,10 @@ public class AuctionDashboard {
                 p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
             double rate = count * 100 / totalNumberOfAuctions;
 
-            StringBuilder line = createMark(totalNumberOfAuctions, p);
-
             String markdownForParticipant =
-                String.format("| %s %s | %.2f%% |\n", p.getName(), line, rate);
+                String.format(
+                    "| %s %s | %.2f%% |\n",
+                    p.getName(), createMark(totalNumberOfAuctions, p), rate);
             writer.print(markdownForParticipant);
           });
     } finally{
