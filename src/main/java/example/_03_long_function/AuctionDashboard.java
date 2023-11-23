@@ -78,16 +78,7 @@ public class AuctionDashboard {
                 p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
             double rate = count * 100 / totalNumberOfAuctions;
 
-            /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
-            StringBuilder line = new StringBuilder();
-            for (int i = 1; i <= totalNumberOfAuctions; i++) {
-              if (p.getParticipatingAuctions().containsKey(i)
-                  && p.getParticipatingAuctions().get(i)) {
-                line.append("|:white_check_mark:");
-              } else {
-                line.append("|:x:");
-              }
-            }
+            StringBuilder line = createMark(totalNumberOfAuctions, p);
 
             String markdownForParticipant =
                 String.format("| %s %s | %.2f%% |\n", p.getName(), line, rate);
@@ -97,6 +88,19 @@ public class AuctionDashboard {
       writer.close();
       fileWriter.close();
     }
+  }
+
+  private static StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
+    /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
+    StringBuilder line = new StringBuilder();
+    for (int i = 1; i <= totalNumberOfAuctions; i++) {
+      if (p.getParticipatingAuctions().containsKey(i) && p.getParticipatingAuctions().get(i)) {
+        line.append("|:white_check_mark:");
+      } else {
+        line.append("|:x:");
+      }
+    }
+    return line;
   }
 
   private StringBuilder createHeader(int totalNumberOfParticipants, int totalNumberOfAuctions) {
