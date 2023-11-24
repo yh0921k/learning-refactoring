@@ -79,15 +79,19 @@ public class AuctionDashboard {
             double rate = count * 100 / totalNumberOfAuctions;
 
             String markdownForParticipant =
-                String.format(
-                    "| %s %s | %.2f%% |\n",
-                    p.getName(), createMark(totalNumberOfAuctions, p), rate);
+                getMarkdownForParticipant(totalNumberOfAuctions, p, rate);
             writer.print(markdownForParticipant);
           });
-    } finally{
+    } finally {
       writer.close();
       fileWriter.close();
     }
+  }
+
+  private static String getMarkdownForParticipant(
+      int totalNumberOfAuctions, Participant p, double rate) {
+    return String.format(
+        "| %s %s | %.2f%% |\n", p.getName(), createMark(totalNumberOfAuctions, p), rate);
   }
 
   private static StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
