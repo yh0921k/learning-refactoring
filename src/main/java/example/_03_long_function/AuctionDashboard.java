@@ -74,9 +74,7 @@ public class AuctionDashboard {
 
       participants.forEach(
           p -> {
-            long count =
-                p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
-            double rate = count * 100 / totalNumberOfAuctions;
+            double rate = getRate(totalNumberOfAuctions, p);
 
             String markdownForParticipant =
                 getMarkdownForParticipant(totalNumberOfAuctions, p, rate);
@@ -88,13 +86,17 @@ public class AuctionDashboard {
     }
   }
 
-  private static String getMarkdownForParticipant(
-      int totalNumberOfAuctions, Participant p, double rate) {
+  private double getRate(int totalNumberOfAuctions, Participant p) {
+    long count = p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
+    return (double) (count * 100 / totalNumberOfAuctions);
+  }
+
+  private String getMarkdownForParticipant(int totalNumberOfAuctions, Participant p, double rate) {
     return String.format(
         "| %s %s | %.2f%% |\n", p.getName(), createMark(totalNumberOfAuctions, p), rate);
   }
 
-  private static StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
+  private StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
     /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
     StringBuilder line = new StringBuilder();
     for (int i = 1; i <= totalNumberOfAuctions; i++) {
