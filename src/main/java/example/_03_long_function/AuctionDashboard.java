@@ -72,11 +72,7 @@ public class AuctionDashboard {
 
       writer.print(createHeader(participants.size(), totalNumberOfAuctions));
 
-      participants.forEach(
-          p -> {
-            String markdownForParticipant = getMarkdownForParticipant(totalNumberOfAuctions, p);
-            writer.print(markdownForParticipant);
-          });
+      participants.forEach(p -> writer.print(getMarkdownForParticipant(totalNumberOfAuctions, p)));
     } finally {
       writer.close();
       fileWriter.close();
