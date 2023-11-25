@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 
 public class AuctionDashboard {
 
+  private int totalNumberOfAuctions;
+
   public static void main(String[] args) throws IOException, InterruptedException {
     AuctionDashboard auctionDashboard = new AuctionDashboard();
     auctionDashboard.print();
@@ -22,7 +24,7 @@ public class AuctionDashboard {
     AuctionHub auctionHub = new AuctionHub("서울", auctions);
     List<Participant> participants = new CopyOnWriteArrayList<>();
 
-    int totalNumberOfAuctions = auctionHub.getAuctionSize();
+    totalNumberOfAuctions = auctionHub.getAuctionSize();
     ExecutorService service = Executors.newFixedThreadPool(4);
     CountDownLatch latch = new CountDownLatch(totalNumberOfAuctions);
 
