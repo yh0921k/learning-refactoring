@@ -74,10 +74,7 @@ public class AuctionDashboard {
 
       participants.forEach(
           p -> {
-            double rate = getRate(totalNumberOfAuctions, p);
-
-            String markdownForParticipant =
-                getMarkdownForParticipant(totalNumberOfAuctions, p, rate);
+            String markdownForParticipant = getMarkdownForParticipant(totalNumberOfAuctions, p);
             writer.print(markdownForParticipant);
           });
     } finally {
@@ -91,9 +88,10 @@ public class AuctionDashboard {
     return (double) (count * 100 / totalNumberOfAuctions);
   }
 
-  private String getMarkdownForParticipant(int totalNumberOfAuctions, Participant p, double rate) {
+  private String getMarkdownForParticipant(int totalNumberOfAuctions, Participant p) {
     return String.format(
-        "| %s %s | %.2f%% |\n", p.getName(), createMark(totalNumberOfAuctions, p), rate);
+        "| %s %s | %.2f%% |\n",
+        p.getName(), createMark(totalNumberOfAuctions, p), getRate(totalNumberOfAuctions, p));
   }
 
   private StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
