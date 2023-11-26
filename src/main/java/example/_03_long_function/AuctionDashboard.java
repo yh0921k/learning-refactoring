@@ -12,18 +12,21 @@ import java.util.concurrent.Executors;
 
 public class AuctionDashboard {
 
-  private int totalNumberOfAuctions;
+  private final AuctionHub auctionHub;
+  private final int totalNumberOfAuctions;
+
+  public AuctionDashboard(AuctionHub auctionHub) {
+    this.auctionHub = auctionHub;
+    this.totalNumberOfAuctions = auctionHub.getAuctionSize();
+  }
 
   public static void main(String[] args) throws IOException, InterruptedException {
-    AuctionDashboard auctionDashboard = new AuctionDashboard();
+    AuctionDashboard auctionDashboard = new AuctionDashboard(connectAuctionHub());
     auctionDashboard.print();
   }
 
   public void print() throws IOException, InterruptedException {
-    AuctionHub auctionHub = connect();
     List<Participant> participants = new CopyOnWriteArrayList<>();
-
-    totalNumberOfAuctions = auctionHub.getAuctionSize();
     ExecutorService service = Executors.newFixedThreadPool(4);
     CountDownLatch latch = new CountDownLatch(totalNumberOfAuctions);
 
@@ -80,7 +83,7 @@ public class AuctionDashboard {
     }
   }
 
-  private AuctionHub connect() {
+  private static AuctionHub connectAuctionHub() {
     List<Auction> auctions = new SampleDataGenerator().generate();
     AuctionHub auctionHub = new AuctionHub("서울", auctions);
     return auctionHub;
