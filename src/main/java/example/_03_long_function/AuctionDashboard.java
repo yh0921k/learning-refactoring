@@ -20,8 +20,7 @@ public class AuctionDashboard {
   }
 
   public void print() throws IOException, InterruptedException {
-    List<Auction> auctions = new SampleDataGenerator().generate();
-    AuctionHub auctionHub = new AuctionHub("서울", auctions);
+    AuctionHub auctionHub = connect();
     List<Participant> participants = new CopyOnWriteArrayList<>();
 
     totalNumberOfAuctions = auctionHub.getAuctionSize();
@@ -79,6 +78,12 @@ public class AuctionDashboard {
       writer.close();
       fileWriter.close();
     }
+  }
+
+  private AuctionHub connect() {
+    List<Auction> auctions = new SampleDataGenerator().generate();
+    AuctionHub auctionHub = new AuctionHub("서울", auctions);
+    return auctionHub;
   }
 
   private double getRate(int totalNumberOfAuctions, Participant p) {
