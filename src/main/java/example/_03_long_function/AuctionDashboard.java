@@ -84,9 +84,7 @@ public class AuctionDashboard {
   }
 
   private static AuctionHub connectAuctionHub() {
-    List<Auction> auctions = new SampleDataGenerator().generate();
-    AuctionHub auctionHub = new AuctionHub("서울", auctions);
-    return auctionHub;
+    return new AuctionHub("서울", new SampleDataGenerator().generate());
   }
 
   private double getRate(int totalNumberOfAuctions, Participant p) {
