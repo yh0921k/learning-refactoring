@@ -73,10 +73,8 @@ public class AuctionDashboard {
     PrintWriter writer = new PrintWriter(fileWriter);
     try {
       participants.sort(Comparator.comparing(Participant::getName));
-
-      writer.print(createHeader(participants.size(), totalNumberOfAuctions));
-
-      participants.forEach(p -> writer.print(getMarkdownForParticipant(totalNumberOfAuctions, p)));
+      writer.print(createHeader(participants.size()));
+      participants.forEach(p -> writer.print(getMarkdownForParticipant(p)));
     } finally {
       writer.close();
       fileWriter.close();
@@ -87,19 +85,17 @@ public class AuctionDashboard {
     return new AuctionHub("서울", new SampleDataGenerator().generate());
   }
 
-  private double getRate(int totalNumberOfAuctions, Participant p) {
+  private double getRate(Participant p) {
     long count = p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
     return (double) (count * 100 / totalNumberOfAuctions);
   }
 
-  private String getMarkdownForParticipant(int totalNumberOfAuctions, Participant p) {
-    return String.format(
-        "| %s %s | %.2f%% |\n",
-        p.getName(), createMark(totalNumberOfAuctions, p), getRate(totalNumberOfAuctions, p));
+  private String getMarkdownForParticipant(Participant p) {
+    return String.format("| %s %s | %.2f%% |\n", p.getName(), createMark(p), getRate(p));
   }
 
-  private StringBuilder createMark(int totalNumberOfAuctions, Participant p) {
-    /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
+  /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
+  private StringBuilder createMark(Participant p) {
     StringBuilder line = new StringBuilder();
     for (int i = 1; i <= totalNumberOfAuctions; i++) {
       if (p.getParticipatingAuctions().containsKey(i) && p.getParticipatingAuctions().get(i)) {
@@ -111,8 +107,8 @@ public class AuctionDashboard {
     return line;
   }
 
-  private StringBuilder createHeader(int totalNumberOfParticipants, int totalNumberOfAuctions) {
-    /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
+  /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
+  private StringBuilder createHeader(int totalNumberOfParticipants) {
     StringBuilder header =
         new StringBuilder(String.format("| 참여자 (%d) |", totalNumberOfParticipants));
 
