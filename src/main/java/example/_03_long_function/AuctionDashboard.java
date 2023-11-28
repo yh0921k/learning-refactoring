@@ -85,13 +85,9 @@ public class AuctionDashboard {
     return new AuctionHub("서울", new SampleDataGenerator().generate());
   }
 
-  private double getRate(Participant p) {
-    long count = p.getParticipatingAuctions().values().stream().filter(v -> v == true).count();
-    return (double) (count * 100 / totalNumberOfAuctions);
-  }
-
   private String getMarkdownForParticipant(Participant p) {
-    return String.format("| %s %s | %.2f%% |\n", p.getName(), createMark(p), getRate(p));
+    return String.format(
+        "| %s %s | %.2f%% |\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions));
   }
 
   /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */

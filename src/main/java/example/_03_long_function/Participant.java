@@ -24,4 +24,9 @@ public class Participant {
   public Map<Integer, Boolean> getParticipatingAuctions() {
     return participatingAuctions;
   }
+
+  double getRate(int totalNumberOfAuctions) {
+    long count = getParticipatingAuctions().values().stream().filter(v -> v).count();
+    return (double) (count * 100 / totalNumberOfAuctions);
+  }
 }
