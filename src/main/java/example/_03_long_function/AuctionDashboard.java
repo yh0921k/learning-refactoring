@@ -69,6 +69,10 @@ public class AuctionDashboard {
     latch.await();
     service.shutdown();
 
+    execute(participants);
+  }
+
+  private void execute(List<Participant> participants) throws IOException {
     FileWriter fileWriter = new FileWriter("participants.md");
     PrintWriter writer = new PrintWriter(fileWriter);
     try {
