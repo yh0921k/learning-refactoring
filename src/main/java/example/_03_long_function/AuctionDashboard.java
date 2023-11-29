@@ -66,7 +66,7 @@ public class AuctionDashboard {
     latch.await();
     service.shutdown();
 
-    execute(participants);
+    new AuctionPrinter(participants, totalNumberOfAuctions).execute();
   }
 
   private static AuctionHub connectAuctionHub() {
