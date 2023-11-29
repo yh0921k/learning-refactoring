@@ -7,7 +7,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AuctionPrinter {
-  public void execute(List<Participant> participants) throws IOException {
+  private final List<Participant> participants;
+  private final int totalNumberOfAuctions;
+
+  public AuctionPrinter(List<Participant> participants, int totalNumberOfAuctions) {
+    this.participants = participants;
+    this.totalNumberOfAuctions = totalNumberOfAuctions;
+  }
+
+  public void execute() throws IOException {
     FileWriter fileWriter = new FileWriter("participants.md");
     PrintWriter writer = new PrintWriter(fileWriter);
     try {
