@@ -37,9 +37,7 @@ public class AuctionDashboard {
                 Auction auction = auctionHub.getAuction(auctionId);
                 List<History> histories = auction.getHistories();
                 for (History history : histories) {
-                  String username = history.getUserName();
-                  Participant participant = findParticipant(username, participants);
-
+                  Participant participant = findParticipant(history.getUserName(), participants);
                   participant.participate(auctionId);
                 }
 
