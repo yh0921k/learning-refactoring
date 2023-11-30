@@ -38,19 +38,7 @@ public class AuctionDashboard {
                 List<History> histories = auction.getHistories();
                 for (History history : histories) {
                   String username = history.getUserName();
-                  boolean isNewUser =
-                      participants.stream().noneMatch(p -> p.getName().equals(username));
-                  Participant participant = null;
-                  if (isNewUser) {
-                    participant = new Participant(username);
-                    participants.add(participant);
-                  } else {
-                    participant =
-                        participants.stream()
-                            .filter(p -> p.getName().equals(username))
-                            .findFirst()
-                            .orElseThrow();
-                  }
+                  Participant participant = findParticipant(username, participants);
 
                   participant.participate(auctionId);
                 }
@@ -67,6 +55,19 @@ public class AuctionDashboard {
     service.shutdown();
 
     new AuctionPrinter(participants, totalNumberOfAuctions).execute();
+  }
+
+  private static Participant findParticipant(String username, List<Participant> participants) {
+    boolean isNewUser = participants.stream().noneMatch(p -> p.getName().equals(username));
+    Participant participant = null;
+    if (isNewUser) {
+      participant = new Participant(username);
+      participants.add(participant);
+    } else {
+      participant =
+          participants.stream().filter(p -> p.getName().equals(username)).findFirst().orElseThrow();
+    }
+    return participant;
   }
 
   private static AuctionHub connectAuctionHub() {
