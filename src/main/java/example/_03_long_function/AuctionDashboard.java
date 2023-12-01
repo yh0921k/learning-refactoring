@@ -56,13 +56,9 @@ public class AuctionDashboard {
   }
 
   private Participant findParticipant(String username, List<Participant> participants) {
-    Participant participant = null;
-    if (isNewParticipant(username, participants)) {
-      participant = createNewParticipant(username, participants);
-    } else {
-      participant = findExistingParticipant(username, participants);
-    }
-    return participant;
+    return isNewParticipant(username, participants)
+        ? createNewParticipant(username, participants)
+        : findExistingParticipant(username, participants);
   }
 
   private Participant createNewParticipant(String username, List<Participant> participants) {
