@@ -55,16 +55,28 @@ public class AuctionDashboard {
     new AuctionPrinter(participants, totalNumberOfAuctions).execute();
   }
 
-  private static Participant findParticipant(String username, List<Participant> participants) {
+  private Participant findParticipant(String username, List<Participant> participants) {
     Participant participant = null;
     if (isNewParticipant(username, participants)) {
-      participant = new Participant(username);
-      participants.add(participant);
+      participant = createNewParticipant(username, participants);
     } else {
-      participant =
-          participants.stream().filter(p -> p.getName().equals(username)).findFirst().orElseThrow();
+      participant = findExistingParticipant(username, participants);
     }
     return participant;
+  }
+
+  private Participant createNewParticipant(String username, List<Participant> participants) {
+    Participant participant;
+    participant = new Participant(username);
+    participants.add(participant);
+    return participant;
+  }
+
+  private Participant findExistingParticipant(String username, List<Participant> participants) {
+    return participants.stream()
+        .filter(p -> p.getName().equals(username))
+        .findFirst()
+        .orElseThrow();
   }
 
   private static boolean isNewParticipant(String username, List<Participant> participants) {
