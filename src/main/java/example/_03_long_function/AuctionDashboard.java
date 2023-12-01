@@ -57,7 +57,7 @@ public class AuctionDashboard {
 
   private static Participant findParticipant(String username, List<Participant> participants) {
     Participant participant = null;
-    if (participants.stream().noneMatch(p1 -> p1.getName().equals(username))) {
+    if (isNewParticipant(username, participants)) {
       participant = new Participant(username);
       participants.add(participant);
     } else {
@@ -65,6 +65,10 @@ public class AuctionDashboard {
           participants.stream().filter(p -> p.getName().equals(username)).findFirst().orElseThrow();
     }
     return participant;
+  }
+
+  private static boolean isNewParticipant(String username, List<Participant> participants) {
+    return participants.stream().noneMatch(p1 -> p1.getName().equals(username));
   }
 
   private static AuctionHub connectAuctionHub() {
