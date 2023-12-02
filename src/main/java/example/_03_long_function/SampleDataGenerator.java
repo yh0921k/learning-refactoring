@@ -51,7 +51,7 @@ public class SampleDataGenerator {
   private Auction getAuctionSample03() {
     Item item = new Item("ItemC");
     List<History> histories = new LinkedList<>();
-    histories.add(new History(p1, 1000L));
+    histories.add(new History(p3, 1000L));
     histories.add(new History(p2, 2000L));
     histories.add(new History(p1, 3000L));
     histories.add(new History(p3, 4000L));
@@ -104,7 +104,7 @@ public class SampleDataGenerator {
   private Auction getAuctionSample08() {
     Item item = new Item("ItemH");
     List<History> histories = new LinkedList<>();
-    histories.add(new History(p5, 2000L));
+    histories.add(new History(p3, 2000L));
     histories.add(new History(p1, 4000L));
     histories.add(new History(p2, 6000L));
     histories.add(new History(p3, 8000L));
