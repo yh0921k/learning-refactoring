@@ -88,7 +88,7 @@ public class SampleDataGenerator {
     histories.add(new History(p1, 9000L));
     histories.add(new History(p4, 10000L));
     histories.add(new History(p4, 12000L));
-    return new Auction(item, histories, p1, LocalDate.of(2023, 12, 21), 5000L, 12000L);
+    return new Auction(item, histories, p4, LocalDate.of(2023, 12, 21), 5000L, 12000L);
   }
 
   private Auction getAuctionSample07() {
