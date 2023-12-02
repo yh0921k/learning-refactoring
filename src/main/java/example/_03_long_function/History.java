@@ -15,4 +15,12 @@ public class History {
   public String getUserName() {
     return this.participant.getName();
   }
+
+  public Long getBidAmount() {
+    return bidAmount;
+  }
+
+  public Participant getParticipant() {
+    return participant;
+  }
 }
