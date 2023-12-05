@@ -40,28 +40,9 @@ public class AuctionDashboard {
                 Auction auction = auctionHub.getAuction(auctionId);
                 List<History> histories = auction.getHistories();
 
-                for (History history : histories) {
-                  Participant participant = findParticipant(history.getUserName(), participants);
-                  participant.participate(auctionId);
-                }
-
-                Long firstBidAmount = Long.MAX_VALUE;
-                Participant firstBidder = null;
-                for (History history : histories) {
-                  if (firstBidder == null || history.getBidAmount() < firstBidAmount) {
-                    firstBidder = history.getParticipant();
-                    firstBidAmount = history.getBidAmount();
-                  }
-                }
-
-                Long lastBidAmount = 0L;
-                Participant lastBidder = null;
-                for (History history : histories) {
-                  if (lastBidder == null || history.getBidAmount() > lastBidAmount) {
-                    lastBidder = history.getParticipant();
-                    lastBidAmount = history.getBidAmount();
-                  }
-                }
+                checkParticipatingAuction(histories, participants, auctionId);
+                Participant firstBidder = findFirstBidder(histories);
+                Participant lastBidder = findLastBidder(histories);
 
                 if (firstBidder == lastBidder) {
                   sameBidders[auctionId - 1] = lastBidder;
@@ -84,6 +65,37 @@ public class AuctionDashboard {
     Arrays.stream(sameBidders)
         .filter(bidder -> bidder != null)
         .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
+  }
+
+  private static Participant findLastBidder(List<History> histories) {
+    Long lastBidAmount = 0L;
+    Participant lastBidder = null;
+    for (History history : histories) {
+      if (lastBidder == null || history.getBidAmount() > lastBidAmount) {
+        lastBidder = history.getParticipant();
+        lastBidAmount = history.getBidAmount();
+      }
+    }
+    return lastBidder;
+  }
+
+  private static Participant findFirstBidder(List<History> histories) {
+    Long firstBidAmount = Long.MAX_VALUE;
+    Participant firstBidder = null;
+    for (History history : histories) {
+      if (firstBidder == null || history.getBidAmount() < firstBidAmount) {
+        firstBidder = history.getParticipant();
+        firstBidAmount = history.getBidAmount();
+      }
+    }
+    return firstBidder;
+  }
+
+  private void checkParticipatingAuction(List<History> histories, List<Participant> participants, int auctionId) {
+    for (History history : histories) {
+      Participant participant = findParticipant(history.getUserName(), participants);
+      participant.participate(auctionId);
+    }
   }
 
   private Participant findParticipant(String username, List<Participant> participants) {
