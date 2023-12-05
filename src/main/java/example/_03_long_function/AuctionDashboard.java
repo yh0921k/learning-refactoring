@@ -49,12 +49,16 @@ public class AuctionDashboard {
                 for (History history : histories) {
                   Participant participant = findParticipant(history.getUserName(), participants);
                   participant.participate(auctionId);
+                }
 
+                for (History history : histories) {
                   if (firstBidder == null || history.getBidAmount() < firstBidAmount) {
                     firstBidder = history.getParticipant();
                     firstBidAmount = history.getBidAmount();
                   }
+                }
 
+                for (History history : histories) {
                   if (firstBidder == null || history.getBidAmount() > lastBidAmount) {
                     lastBidder = history.getParticipant();
                     lastBidAmount = history.getBidAmount();
