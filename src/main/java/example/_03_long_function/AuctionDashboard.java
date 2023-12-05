@@ -40,17 +40,13 @@ public class AuctionDashboard {
                 Auction auction = auctionHub.getAuction(auctionId);
                 List<History> histories = auction.getHistories();
 
-                Long firstBidAmount = Long.MAX_VALUE;
-                Participant firstBidder = null;
-
-                Long lastBidAmount = 0L;
-                Participant lastBidder = null;
-
                 for (History history : histories) {
                   Participant participant = findParticipant(history.getUserName(), participants);
                   participant.participate(auctionId);
                 }
 
+                Long firstBidAmount = Long.MAX_VALUE;
+                Participant firstBidder = null;
                 for (History history : histories) {
                   if (firstBidder == null || history.getBidAmount() < firstBidAmount) {
                     firstBidder = history.getParticipant();
@@ -58,8 +54,10 @@ public class AuctionDashboard {
                   }
                 }
 
+                Long lastBidAmount = 0L;
+                Participant lastBidder = null;
                 for (History history : histories) {
-                  if (firstBidder == null || history.getBidAmount() > lastBidAmount) {
+                  if (lastBidder == null || history.getBidAmount() > lastBidAmount) {
                     lastBidder = history.getParticipant();
                     lastBidAmount = history.getBidAmount();
                   }
