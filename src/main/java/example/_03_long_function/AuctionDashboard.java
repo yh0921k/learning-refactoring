@@ -61,10 +61,9 @@ public class AuctionDashboard {
   }
 
   private static Participant findSameBidder(List<History> histories) {
-    Participant firstBidder = findFirstBidder(histories);
-    Participant lastBidder = findLastBidder(histories);
-
-    return firstBidder == lastBidder ? lastBidder : null;
+    return findFirstBidder(histories) == findLastBidder(histories)
+        ? findLastBidder(histories)
+        : null;
   }
 
   private static Participant findLastBidder(List<History> histories) {
