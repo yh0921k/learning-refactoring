@@ -41,10 +41,7 @@ public class AuctionDashboard {
                 List<History> histories = auction.getHistories();
 
                 checkParticipatingAuction(histories, participants, auctionId);
-                Participant firstBidder = findFirstBidder(histories);
-                Participant lastBidder = findLastBidder(histories);
-
-                sameBidders[auctionId - 1] = firstBidder == lastBidder ? lastBidder : null;
+                sameBidders[auctionId - 1] = findSameBidder(histories);
 
                 latch.countDown();
               } catch (Exception e) {
@@ -61,6 +58,13 @@ public class AuctionDashboard {
     Arrays.stream(sameBidders)
         .filter(bidder -> bidder != null)
         .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
+  }
+
+  private static Participant findSameBidder(List<History> histories) {
+    Participant firstBidder = findFirstBidder(histories);
+    Participant lastBidder = findLastBidder(histories);
+
+    return firstBidder == lastBidder ? lastBidder : null;
   }
 
   private static Participant findLastBidder(List<History> histories) {
