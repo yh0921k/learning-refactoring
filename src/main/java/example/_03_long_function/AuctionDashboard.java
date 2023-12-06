@@ -44,11 +44,7 @@ public class AuctionDashboard {
                 Participant firstBidder = findFirstBidder(histories);
                 Participant lastBidder = findLastBidder(histories);
 
-                if (firstBidder == lastBidder) {
-                  sameBidders[auctionId - 1] = lastBidder;
-                } else {
-                  sameBidders[auctionId - 1] = null;
-                }
+                sameBidders[auctionId - 1] = firstBidder == lastBidder ? lastBidder : null;
 
                 latch.countDown();
               } catch (Exception e) {
