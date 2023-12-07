@@ -60,13 +60,13 @@ public class AuctionDashboard {
         .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
   }
 
-  private static Participant findSameBidder(List<History> histories) {
+  private Participant findSameBidder(List<History> histories) {
     return findFirstBidder(histories) == findLastBidder(histories)
         ? findLastBidder(histories)
         : null;
   }
 
-  private static Participant findLastBidder(List<History> histories) {
+  private Participant findLastBidder(List<History> histories) {
     Long lastBidAmount = 0L;
     Participant lastBidder = null;
     for (History history : histories) {
@@ -78,7 +78,7 @@ public class AuctionDashboard {
     return lastBidder;
   }
 
-  private static Participant findFirstBidder(List<History> histories) {
+  private Participant findFirstBidder(List<History> histories) {
     Long firstBidAmount = Long.MAX_VALUE;
     Participant firstBidder = null;
     for (History history : histories) {
@@ -117,7 +117,7 @@ public class AuctionDashboard {
         .orElseThrow();
   }
 
-  private static boolean isNewParticipant(String username, List<Participant> participants) {
+  private boolean isNewParticipant(String username, List<Participant> participants) {
     return participants.stream().noneMatch(p1 -> p1.getName().equals(username));
   }
 
