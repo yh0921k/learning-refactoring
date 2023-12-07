@@ -27,6 +27,16 @@ public class AuctionDashboard {
     List<Participant> participants = new CopyOnWriteArrayList<>();
     Participant[] sameBidders = new Participant[totalNumberOfAuctions];
 
+    checkAuctionHub(participants, sameBidders);
+
+    new AuctionPrinter(participants, totalNumberOfAuctions).execute();
+    Arrays.stream(sameBidders)
+        .filter(bidder -> bidder != null)
+        .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
+  }
+
+  private void checkAuctionHub(List<Participant> participants, Participant[] sameBidders)
+      throws InterruptedException {
     ExecutorService service = Executors.newFixedThreadPool(4);
     CountDownLatch latch = new CountDownLatch(totalNumberOfAuctions);
 
@@ -53,11 +63,6 @@ public class AuctionDashboard {
 
     latch.await();
     service.shutdown();
-
-    new AuctionPrinter(participants, totalNumberOfAuctions).execute();
-    Arrays.stream(sameBidders)
-        .filter(bidder -> bidder != null)
-        .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
   }
 
   private Participant findSameBidder(List<History> histories) {
