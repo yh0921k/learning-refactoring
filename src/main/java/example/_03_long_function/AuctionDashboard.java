@@ -28,17 +28,18 @@ public class AuctionDashboard {
   }
 
   public void print() throws IOException, InterruptedException {
-
     checkAuctionHub();
-
     new AuctionPrinter(participants, totalNumberOfAuctions).execute();
+    printSameBidder();
+  }
+
+  private void printSameBidder() {
     Arrays.stream(sameBidders)
         .filter(bidder -> bidder != null)
         .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
   }
 
-  private void checkAuctionHub()
-      throws InterruptedException {
+  private void checkAuctionHub() throws InterruptedException {
     ExecutorService service = Executors.newFixedThreadPool(4);
     CountDownLatch latch = new CountDownLatch(totalNumberOfAuctions);
 
