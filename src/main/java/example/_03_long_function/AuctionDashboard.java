@@ -12,10 +12,14 @@ public class AuctionDashboard {
 
   private final AuctionHub auctionHub;
   private final int totalNumberOfAuctions;
+  private final List<Participant> participants;
+  private final Participant[] sameBidders;
 
   public AuctionDashboard(AuctionHub auctionHub) {
     this.auctionHub = auctionHub;
     this.totalNumberOfAuctions = auctionHub.getAuctionSize();
+    this.participants = new CopyOnWriteArrayList<>();
+    this.sameBidders = new Participant[totalNumberOfAuctions];
   }
 
   public static void main(String[] args) throws IOException, InterruptedException {
@@ -24,8 +28,6 @@ public class AuctionDashboard {
   }
 
   public void print() throws IOException, InterruptedException {
-    List<Participant> participants = new CopyOnWriteArrayList<>();
-    Participant[] sameBidders = new Participant[totalNumberOfAuctions];
 
     checkAuctionHub(participants, sameBidders);
 
