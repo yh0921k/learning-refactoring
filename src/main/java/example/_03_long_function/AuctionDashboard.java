@@ -46,20 +46,17 @@ public class AuctionDashboard {
     for (int index = 1; index <= totalNumberOfAuctions; index++) {
       int auctionId = index;
       service.execute(
-          new Runnable() {
-            @Override
-            public void run() {
-              try {
-                Auction auction = auctionHub.getAuction(auctionId);
-                List<History> histories = auction.getHistories();
+          () -> {
+            try {
+              Auction auction = auctionHub.getAuction(auctionId);
+              List<History> histories = auction.getHistories();
 
-                checkParticipatingAuction(histories, participants, auctionId);
-                sameBidders[auctionId - 1] = findSameBidder(histories);
+              checkParticipatingAuction(histories, participants, auctionId);
+              sameBidders[auctionId - 1] = findSameBidder(histories);
 
-                latch.countDown();
-              } catch (Exception e) {
-                throw new IllegalArgumentException(e);
-              }
+              latch.countDown();
+            } catch (Exception e) {
+              throw new IllegalArgumentException(e);
             }
           });
     }
