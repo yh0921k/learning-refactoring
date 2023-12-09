@@ -3,6 +3,7 @@ package example._03_long_function;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -35,7 +36,7 @@ public class AuctionDashboard {
 
   private void printSameBidder() {
     Arrays.stream(sameBidders)
-        .filter(bidder -> bidder != null)
+        .filter(Objects::nonNull)
         .forEach((bidder) -> System.out.println("bidder = " + bidder.getName()));
   }
 
