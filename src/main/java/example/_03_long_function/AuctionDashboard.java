@@ -53,7 +53,7 @@ public class AuctionDashboard {
               List<History> histories = auction.getHistories();
 
               checkParticipatingAuction(histories, participants, auctionId);
-              sameBidders[auctionId - 1] = findSameBidder(histories);
+              checkSameBidders(auctionId, histories);
 
               latch.countDown();
             } catch (Exception e) {
@@ -64,6 +64,10 @@ public class AuctionDashboard {
 
     latch.await();
     service.shutdown();
+  }
+
+  private void checkSameBidders(int auctionId, List<History> histories) {
+    sameBidders[auctionId - 1] = findSameBidder(histories);
   }
 
   private Participant findSameBidder(List<History> histories) {
