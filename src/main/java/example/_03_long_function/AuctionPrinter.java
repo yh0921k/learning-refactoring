@@ -16,15 +16,11 @@ public class AuctionPrinter {
   }
 
   public void execute() throws IOException {
-    FileWriter fileWriter = new FileWriter("participants.md");
-    PrintWriter writer = new PrintWriter(fileWriter);
-    try {
+    try (FileWriter fileWriter = new FileWriter("participants.md");
+        PrintWriter writer = new PrintWriter(fileWriter)) {
       participants.sort(Comparator.comparing(Participant::getName));
       writer.print(createHeader(participants.size()));
       participants.forEach(p -> writer.print(getMarkdownForParticipant(p)));
-    } finally {
-      writer.close();
-      fileWriter.close();
     }
   }
 
