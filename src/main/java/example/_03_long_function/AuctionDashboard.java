@@ -117,8 +117,7 @@ public class AuctionDashboard {
   }
 
   private Participant createNewParticipant(String username, List<Participant> participants) {
-    Participant participant;
-    participant = new Participant(username);
+    Participant participant = new Participant(username);
     participants.add(participant);
     return participant;
   }
