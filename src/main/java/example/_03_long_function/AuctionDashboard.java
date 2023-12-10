@@ -49,12 +49,7 @@ public class AuctionDashboard {
       service.execute(
           () -> {
             try {
-              Auction auction = auctionHub.getAuction(auctionId);
-              List<History> histories = auction.getHistories();
-
-              checkParticipatingAuction(histories, participants, auctionId);
-              checkSameBidders(auctionId, histories);
-
+              checkAuction(auctionId);
               latch.countDown();
             } catch (Exception e) {
               throw new IllegalArgumentException(e);
@@ -64,6 +59,14 @@ public class AuctionDashboard {
 
     latch.await();
     service.shutdown();
+  }
+
+  private void checkAuction(int auctionId) throws InterruptedException {
+    Auction auction = auctionHub.getAuction(auctionId);
+    List<History> histories = auction.getHistories();
+
+    checkParticipatingAuction(histories, participants, auctionId);
+    checkSameBidders(auctionId, histories);
   }
 
   private void checkSameBidders(int auctionId, List<History> histories) {
