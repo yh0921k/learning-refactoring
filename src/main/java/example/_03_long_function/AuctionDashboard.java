@@ -103,11 +103,11 @@ public class AuctionDashboard {
     return firstBidder;
   }
 
-  private void checkParticipatingAuction(List<History> histories, List<Participant> participants, int auctionId) {
-    for (History history : histories) {
-      Participant participant = findParticipant(history.getUserName(), participants);
-      participant.participate(auctionId);
-    }
+  private void checkParticipatingAuction(
+      List<History> histories, List<Participant> participants, int auctionId) {
+    histories.stream()
+        .map(history -> findParticipant(history.getUserName(), participants))
+        .forEach(participant -> participant.participate(auctionId));
   }
 
   private Participant findParticipant(String username, List<Participant> participants) {
