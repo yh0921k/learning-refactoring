@@ -65,7 +65,7 @@ public class AuctionDashboard {
     Auction auction = auctionHub.getAuction(auctionId);
     List<History> histories = auction.getHistories();
 
-    checkParticipatingAuction(histories, participants, auctionId);
+    checkParticipatingAuction(histories, auctionId);
     checkSameBidders(auctionId, histories);
   }
 
@@ -103,8 +103,7 @@ public class AuctionDashboard {
     return firstBidder;
   }
 
-  private void checkParticipatingAuction(
-      List<History> histories, List<Participant> participants, int auctionId) {
+  private void checkParticipatingAuction(List<History> histories, int auctionId) {
     histories.stream()
         .map(history -> findParticipant(history.getUserName(), participants))
         .forEach(participant -> participant.participate(auctionId));
