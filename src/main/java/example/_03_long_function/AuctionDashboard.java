@@ -2,6 +2,7 @@ package example._03_long_function;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -80,27 +81,17 @@ public class AuctionDashboard {
   }
 
   private Participant findLastBidder(List<History> histories) {
-    Long lastBidAmount = 0L;
-    Participant lastBidder = null;
-    for (History history : histories) {
-      if (lastBidder == null || history.getBidAmount() > lastBidAmount) {
-        lastBidder = history.getParticipant();
-        lastBidAmount = history.getBidAmount();
-      }
-    }
-    return lastBidder;
+    return histories.stream()
+        .max(Comparator.comparingLong(History::getBidAmount))
+        .map(History::getParticipant)
+        .orElse(null);
   }
 
   private Participant findFirstBidder(List<History> histories) {
-    Long firstBidAmount = Long.MAX_VALUE;
-    Participant firstBidder = null;
-    for (History history : histories) {
-      if (firstBidder == null || history.getBidAmount() < firstBidAmount) {
-        firstBidder = history.getParticipant();
-        firstBidAmount = history.getBidAmount();
-      }
-    }
-    return firstBidder;
+    return histories.stream()
+        .min(Comparator.comparingLong(History::getBidAmount))
+        .map(History::getParticipant)
+        .orElse(null);
   }
 
   private void checkParticipatingAuction(List<History> histories, int auctionId) {
