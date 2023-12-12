@@ -31,7 +31,7 @@ public class AuctionDashboard {
 
   public void print() throws IOException, InterruptedException {
     checkAuctionHub();
-    new AuctionPrinter(participants, totalNumberOfAuctions).execute();
+    new AuctionPrinter(participants, totalNumberOfAuctions, PrinterMode.CONSOLE).execute();
     printSameBidder();
   }
 

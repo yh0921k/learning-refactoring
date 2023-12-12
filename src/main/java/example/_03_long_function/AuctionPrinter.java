@@ -9,19 +9,65 @@ import java.util.List;
 public class AuctionPrinter {
   private final List<Participant> participants;
   private final int totalNumberOfAuctions;
+  private final PrinterMode printerMode;
 
-  public AuctionPrinter(List<Participant> participants, int totalNumberOfAuctions) {
+  public AuctionPrinter(
+      List<Participant> participants, int totalNumberOfAuctions, PrinterMode printerMode) {
     this.participants = participants;
     this.totalNumberOfAuctions = totalNumberOfAuctions;
+    this.printerMode = printerMode;
   }
 
   public void execute() throws IOException {
-    try (FileWriter fileWriter = new FileWriter("participants.md");
-        PrintWriter writer = new PrintWriter(fileWriter)) {
-      participants.sort(Comparator.comparing(Participant::getName));
-      writer.print(createHeader(participants.size()));
-      participants.forEach(p -> writer.print(getMarkdownForParticipant(p)));
+    switch (printerMode) {
+      case CSV -> {
+        try (FileWriter fileWriter = new FileWriter("participants.cvs");
+            PrintWriter writer = new PrintWriter(fileWriter)) {
+          participants.sort(Comparator.comparing(Participant::getName));
+          writer.println(createCsvHeader(this.participants.size()));
+          this.participants.forEach(p -> writer.println(getCsvForParticipant(p)));
+        }
+      }
+      case CONSOLE -> {
+        participants.sort(Comparator.comparing(Participant::getName));
+        this.participants.forEach(
+            p ->
+                System.out.printf(
+                    "%s %s:%s\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions)));
+      }
+      case MARKDOWN -> {
+        try (FileWriter fileWriter = new FileWriter("participants.md");
+            PrintWriter writer = new PrintWriter(fileWriter)) {
+          participants.sort(Comparator.comparing(Participant::getName));
+          writer.print(createHeader(participants.size()));
+          participants.forEach(p -> writer.print(getMarkdownForParticipant(p)));
+        }
+      }
     }
+  }
+
+  private String getCsvForParticipant(Participant participant) {
+    StringBuilder line = new StringBuilder();
+    line.append(participant.getName());
+    for (int i = 1; i <= this.totalNumberOfAuctions; i++) {
+      if (participant.getParticipatingAuctions().containsKey(i)
+          && participant.getParticipatingAuctions().get(i)) {
+        line.append(",O");
+      } else {
+        line.append(",X");
+      }
+    }
+    line.append(",").append(participant.getRate(this.totalNumberOfAuctions));
+    return line.toString();
+  }
+
+  private String createCsvHeader(int totalNumberOfParticipants) {
+    StringBuilder header = new StringBuilder(String.format("참여자 (%d),", totalNumberOfParticipants));
+    for (int index = 1; index <= this.totalNumberOfAuctions; index++) {
+      header.append(String.format("%d주차,", index));
+    }
+    header.append("참석율");
+    return header.toString();
   }
 
   private String getMarkdownForParticipant(Participant p) {
