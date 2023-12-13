@@ -7,8 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AuctionPrinter {
-  private final List<Participant> participants;
-  private final int totalNumberOfAuctions;
+  protected final List<Participant> participants;
+  protected final int totalNumberOfAuctions;
 
   public AuctionPrinter(
       List<Participant> participants, int totalNumberOfAuctions) {
