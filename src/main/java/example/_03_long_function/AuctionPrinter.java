@@ -9,13 +9,11 @@ import java.util.List;
 public class AuctionPrinter {
   private final List<Participant> participants;
   private final int totalNumberOfAuctions;
-  private final PrinterMode printerMode;
 
   public AuctionPrinter(
-      List<Participant> participants, int totalNumberOfAuctions, PrinterMode printerMode) {
+      List<Participant> participants, int totalNumberOfAuctions) {
     this.participants = participants;
     this.totalNumberOfAuctions = totalNumberOfAuctions;
-    this.printerMode = printerMode;
   }
 
   public void execute() throws IOException {
