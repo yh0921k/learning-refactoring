@@ -1,6 +1,5 @@
 package example._03_long_function;
 
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,11 +10,12 @@ public class ConsolePrinter extends AuctionPrinter {
   }
 
   @Override
-  public void execute() throws IOException {
+  public void execute() {
     participants.sort(Comparator.comparing(Participant::getName));
-    this.participants.forEach(
-        p ->
-            System.out.printf(
-                "%s %s:%s\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions)));
+    this.participants.forEach(this::printConsole);
+  }
+
+  private void printConsole(Participant p) {
+    System.out.printf("%s %s:%s\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions));
   }
 }
