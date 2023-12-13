@@ -19,19 +19,10 @@ public class AuctionPrinter {
   public void execute() throws IOException {
     switch (printerMode) {
       case CSV -> {
-        try (FileWriter fileWriter = new FileWriter("participants.cvs");
-            PrintWriter writer = new PrintWriter(fileWriter)) {
-          participants.sort(Comparator.comparing(Participant::getName));
-          writer.println(createCsvHeader(this.participants.size()));
-          this.participants.forEach(p -> writer.println(getCsvForParticipant(p)));
-        }
+
       }
       case CONSOLE -> {
-        participants.sort(Comparator.comparing(Participant::getName));
-        this.participants.forEach(
-            p ->
-                System.out.printf(
-                    "%s %s:%s\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions)));
+
       }
       case MARKDOWN -> {
         try (FileWriter fileWriter = new FileWriter("participants.md");
