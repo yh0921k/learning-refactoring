@@ -25,20 +25,12 @@ public class AuctionPrinter {
 
       }
       case MARKDOWN -> {
-        try (FileWriter fileWriter = new FileWriter("participants.md");
-            PrintWriter writer = new PrintWriter(fileWriter)) {
-          participants.sort(Comparator.comparing(Participant::getName));
-          writer.print(createHeader(participants.size()));
-          participants.forEach(p -> writer.print(getMarkdownForParticipant(p)));
-        }
+
       }
     }
   }
 
-  private String getMarkdownForParticipant(Participant p) {
-    return String.format(
-        "| %s %s | %.2f%% |\n", p.getName(), createMark(p), p.getRate(totalNumberOfAuctions));
-  }
+
 
   /* |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:| */
   private StringBuilder createMark(Participant p) {
@@ -51,20 +43,5 @@ public class AuctionPrinter {
       }
     }
     return line;
-  }
-
-  /* | 참여자 (420) | 1주차 | 2주차 | 3주차 | 참석율 | | --- | --- | --- | --- | --- | */
-  private StringBuilder createHeader(int totalNumberOfParticipants) {
-    StringBuilder header =
-        new StringBuilder(String.format("| 참여자 (%d) |", totalNumberOfParticipants));
-
-    for (int index = 1; index <= totalNumberOfAuctions; index++) {
-      header.append(String.format(" %d주차 |", index));
-    }
-    header.append(" 참석율 |\n");
-
-    header.append("| --- ".repeat(Math.max(0, totalNumberOfAuctions + 2)));
-    header.append("|\n");
-    return header;
   }
 }
