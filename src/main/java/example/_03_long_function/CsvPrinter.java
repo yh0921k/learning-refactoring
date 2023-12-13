@@ -21,4 +21,28 @@ public class CsvPrinter extends AuctionPrinter {
       this.participants.forEach(p -> writer.println(getCsvForParticipant(p)));
     }
   }
+
+  private String getCsvForParticipant(Participant participant) {
+    StringBuilder line = new StringBuilder();
+    line.append(participant.getName());
+    for (int i = 1; i <= this.totalNumberOfAuctions; i++) {
+      if (participant.getParticipatingAuctions().containsKey(i)
+          && participant.getParticipatingAuctions().get(i)) {
+        line.append(",O");
+      } else {
+        line.append(",X");
+      }
+    }
+    line.append(",").append(participant.getRate(this.totalNumberOfAuctions));
+    return line.toString();
+  }
+
+  private String createCsvHeader(int totalNumberOfParticipants) {
+    StringBuilder header = new StringBuilder(String.format("참여자 (%d),", totalNumberOfParticipants));
+    for (int index = 1; index <= this.totalNumberOfAuctions; index++) {
+      header.append(String.format("%d주차,", index));
+    }
+    header.append("참석율");
+    return header.toString();
+  }
 }
