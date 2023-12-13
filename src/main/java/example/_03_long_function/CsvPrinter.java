@@ -14,7 +14,7 @@ public class CsvPrinter extends AuctionPrinter {
 
   @Override
   public void execute() throws IOException {
-    try (FileWriter fileWriter = new FileWriter("participants.cvs");
+    try (FileWriter fileWriter = new FileWriter("participants.csv");
         PrintWriter writer = new PrintWriter(fileWriter)) {
       participants.sort(Comparator.comparing(Participant::getName));
       writer.println(createCsvHeader(this.participants.size()));
